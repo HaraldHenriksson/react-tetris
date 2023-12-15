@@ -9,11 +9,14 @@ export default function Home() {
       </header>
 
       <div className="mb-6">
-        <Link href="/login" className="mr-4 text-blue-500 hover:text-blue-700">
-          Login
+        <Link
+          href="/sign-in"
+          className="mr-4 text-blue-500 hover:text-blue-700"
+        >
+          Sign In
         </Link>
-        <Link href="/register" className="text-blue-500 hover:text-blue-700">
-          Register
+        <Link href="/sign-up" className="text-blue-500 hover:text-blue-700">
+          Sign Up
         </Link>
       </div>
 
