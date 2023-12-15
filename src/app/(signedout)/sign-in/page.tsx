@@ -1,3 +1,4 @@
+import Messages from "@/components/Messages";
 import Link from "next/link";
 
 export default function SignIn() {
@@ -66,7 +67,7 @@ export default function SignIn() {
               </Link>
             </div>
           </div>
-          {/* <Messages /> */}
+          <Messages />
         </form>
       </div>
     </div>
