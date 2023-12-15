@@ -8,7 +8,7 @@ export default function Home() {
         <p>A modern take on the classic game</p>
       </header>
 
-      <div className="mb-6">
+      {/* <div className="mb-6">
         <Link
           href="/sign-in"
           className="mr-4 text-blue-500 hover:text-blue-700"
@@ -18,7 +18,7 @@ export default function Home() {
         <Link href="/sign-up" className="text-blue-500 hover:text-blue-700">
           Sign Up
         </Link>
-      </div>
+      </div> */}
 
       <footer className="text-gray-600">
         <p>React Tetris © 2023</p>
