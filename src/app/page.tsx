@@ -1,16 +1,13 @@
-import Link from "next/link";
+import Home from "./(signedin)/page";
+import SignIn from "./(signedout)/sign-in/page";
+import { getServerUser } from "./lib/user/server";
 
-export default function Home() {
-  return (
-    <main className="flex flex-col items-center justify-between min-h-screen bg-customBlue p-6">
-      <header className="text-center">
-        <h1 className="text-4xl font-bold">React Tetris</h1>
-        <p>A modern take on the classic game</p>
-      </header>
+export const dynamic = "force-dynamic";
 
-      <footer className="text-gray-600">
-        <p>React Tetris © 2023</p>
-      </footer>
-    </main>
-  );
+export default async function Index() {
+  const user = await getServerUser();
+
+  console.log("user", user?.email);
+
+  return <div>{user && user?.id ? <Home /> : <SignIn />}</div>;
 }
