@@ -26,7 +26,7 @@ export async function POST(request: Request) {
 
   if (verifyError) {
     return NextResponse.redirect(
-      `${requestUrl.origin}/reset-password?error={verifyError.message}`,
+      `${requestUrl.origin}/reset-password?error=${verifyError.message}`,
       { status: 301 }
     );
   }
