@@ -11,7 +11,7 @@ interface PageProps {
 }
 
 export default async function ResetPassword({ searchParams }: PageProps) {
-  console.log("hello");
+  const token = searchParams.code;
   return (
     <div className="min-h-screen flex items-center justify-center bg-customBlue py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -25,7 +25,7 @@ export default async function ResetPassword({ searchParams }: PageProps) {
           action="/auth/reset-password"
           method="post"
         >
-          <input type="hidden" name="token" />
+          <input type="hidden" name="token" value={token} />
           <div className="rounded-md shadow-sm space-y-4">
             <div>
               <label htmlFor="password" className="sr-only">
