@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   const password = formData.get("password")?.toString();
   const token = formData.get("token")?.toString();
 
-  const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+  const supabaseServiceKey = process.env.NEXT_SUPABASE_SERVICE_KEY;
 
   console.log({ password, token, supabaseServiceKey });
   if (!token || !password || !supabaseServiceKey) {
