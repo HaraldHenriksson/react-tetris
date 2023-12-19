@@ -1,4 +1,4 @@
-import Home from "./(signedin)/page";
+import Home from "./(signedin)/home/page";
 import SignIn from "./(signedout)/sign-in/page";
 import { getServerUser } from "./lib/user/server";
 
