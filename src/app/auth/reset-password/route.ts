@@ -1,39 +1,35 @@
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+
+export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   const requestUrl = new URL(request.url);
   const formData = await request.formData();
   const password = formData.get("password")?.toString();
   const token = formData.get("token")?.toString();
+  const supabase = createRouteHandlerClient({ cookies });
 
-  const supabaseServiceKey = process.env.NEXT_SUPABASE_SERVICE_KEY;
-
-  console.log({ password, token, supabaseServiceKey });
-  if (!token || !password || !supabaseServiceKey) {
+  if (!token || !password) {
     return NextResponse.redirect(
       `${requestUrl.origin}/reset-password?error=Invalid request`,
       { status: 301 }
     );
   }
 
-  const response = await fetch(
-    "https://hpvvfhkykemmelhjpyqd.supabase.co/auth/v1/change-password",
-    {
-      method: "POST",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        apikey: supabaseServiceKey,
-      }),
-      body: JSON.stringify({ token, password }),
-    }
-  );
+  const { error: verifyError } = await supabase.auth.updateUser({
+    password: password,
+  });
 
-  if (!response.ok) {
+  console.log("verifyError:", verifyError);
+
+  if (verifyError) {
     return NextResponse.redirect(
-      `${requestUrl.origin}/reset-password?error=Failed to reset password`,
+      `${requestUrl.origin}/reset-password?error={verifyError.message}`,
       { status: 301 }
     );
   }
 
-  return NextResponse.redirect(`${requestUrl.origin}/login`, { status: 301 });
+  return NextResponse.redirect(`${requestUrl.origin}/sign-in`, { status: 301 });
 }
