@@ -22,6 +22,7 @@ const NavItem = ({
 
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -31,6 +32,8 @@ export default function Navbar() {
 
     fetchUser();
   }, []);
+
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   return (
     <nav className="bg-customBlue">
@@ -49,12 +52,27 @@ export default function Navbar() {
             >
               Leaderboard
             </NavItem>
-            <NavItem
-              href="/profile"
-              className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-            >
-              {user?.email}
-            </NavItem>
+            <li className="relative">
+              <button onClick={toggleDropdown} className="text-white">
+                {user?.email}
+              </button>
+              {isDropdownOpen && (
+                <ul className="absolute left-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+                  <NavItem
+                    href="/profile"
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-gray-100"
+                  >
+                    Profile
+                  </NavItem>
+                  <NavItem
+                    href="/sign-out"
+                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                  >
+                    Logout
+                  </NavItem>
+                </ul>
+              )}
+            </li>
           </ul>
         </div>
       </div>
