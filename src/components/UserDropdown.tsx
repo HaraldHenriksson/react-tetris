@@ -1,6 +1,6 @@
 "use client";
 
-import { SignOut } from "@/app/auth/sign-out/route";
+import { POST } from "@/app/auth/sign-out/route";
 import { User } from "@supabase/supabase-js";
 import React, { useState } from "react";
 
@@ -15,7 +15,7 @@ const UserDropdown = ({ user }: UserDropdownProps) => {
 
   const handleLogoutClick = async () => {
     try {
-      const result = await SignOut();
+      const result = await POST();
 
       if (result.success) {
         window.location.href = "/sign-in";
