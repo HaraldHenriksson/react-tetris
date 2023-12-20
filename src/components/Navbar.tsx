@@ -1,8 +1,7 @@
-"use client";
+"use server";
 
 import { getServerUser } from "@/app/lib/user/server";
-import { User } from "@supabase/supabase-js";
-import { useEffect, useState } from "react";
+import UserDropdown from "./UserDropdown";
 
 const NavItem = ({
   href,
@@ -20,20 +19,8 @@ const NavItem = ({
   </li>
 );
 
-export default function Navbar() {
-  const [user, setUser] = useState<User | null>(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const userData = await getServerUser();
-      setUser(userData);
-    };
-
-    fetchUser();
-  }, []);
-
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+export default async function Navbar() {
+  const user = await getServerUser();
 
   return (
     <nav className="bg-customBlue">
@@ -52,27 +39,7 @@ export default function Navbar() {
             >
               Leaderboard
             </NavItem>
-            <li className="relative">
-              <button onClick={toggleDropdown} className="text-white">
-                {user?.email}
-              </button>
-              {isDropdownOpen && (
-                <ul className="absolute left-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
-                  <NavItem
-                    href="/profile"
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-gray-100"
-                  >
-                    Profile
-                  </NavItem>
-                  <NavItem
-                    href="/sign-out"
-                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
-                  >
-                    Logout
-                  </NavItem>
-                </ul>
-              )}
-            </li>
+            {user && <UserDropdown user={user} />}
           </ul>
         </div>
       </div>
