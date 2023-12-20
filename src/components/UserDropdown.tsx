@@ -1,6 +1,5 @@
 "use client";
 
-import { POST } from "@/app/auth/sign-out/route";
 import { User } from "@supabase/supabase-js";
 import React, { useState } from "react";
 
