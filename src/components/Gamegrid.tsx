@@ -1,33 +1,27 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import Cell from "./Cell";
 
-const createGrid = (width: number, height: number) => {
-  return Array.from({ length: height * width }, () => 0);
+const createInitialGrid = (width: number, height: number) => {
+  return Array.from({ length: height }, () => Array(width).fill(false));
 };
 
-const Cell = ({ value }: any) => {
-  const style = {
-    width: "20px",
-    height: "20px",
-    backgroundColor: value === 0 ? "white" : "blue",
-    border: "1px solid black",
-  };
-  return <div style={style} />;
-};
-
-const GameGrid = () => {
-  const width = 10;
-  const height = 20;
-  const [grid, setGrid] = useState(createGrid(width, height));
+const GameGrid = ({ width = 10, height = 20 }) => {
+  const [grid, setGrid] = useState(() => createInitialGrid(width, height));
 
   return (
-    <div
-      style={{ display: "grid", gridTemplateColumns: `repeat(${width}, 20px)` }}
-    >
-      {grid.map((value, index) => (
-        <Cell key={index} value={value} />
-      ))}
+    <div className="flex justify-center items-center h-screen">
+      <div
+        className="grid gap-1"
+        style={{ gridTemplateColumns: `repeat(${width}, 2rem)` }}
+      >
+        {grid.map((row, rowIndex) =>
+          row.map((filled, colIndex) => (
+            <Cell key={`${rowIndex}-${colIndex}`} filled={filled} />
+          ))
+        )}
+      </div>
     </div>
   );
 };
