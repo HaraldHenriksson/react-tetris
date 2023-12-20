@@ -15,12 +15,15 @@ const UserDropdown = ({ user }: UserDropdownProps) => {
 
   const handleLogoutClick = async () => {
     try {
-      const result = await POST();
+      const response = await fetch("/auth/sign-out", {
+        method: "POST",
+      });
 
-      if (result.success) {
+      if (response.ok) {
+        // redirect to login page after successful logout
         window.location.href = "/sign-in";
       } else {
-        console.error("Error logging out:", result.error);
+        console.error("Failed to log out");
       }
     } catch (error) {
       console.error("Error logging out:", error);
