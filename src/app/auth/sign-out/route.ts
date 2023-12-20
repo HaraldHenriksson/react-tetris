@@ -1,16 +1,18 @@
+"use server";
+
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic";
-
-export async function POST(request: Request) {
-  const requestUrl = new URL(request.url);
+export async function SignOut() {
+  //  const requestUrl = new URL(request);
   const supabase = createRouteHandlerClient({ cookies });
 
-  await supabase.auth.signOut();
-
-  return NextResponse.redirect(`${requestUrl.origin}/login`, {
-    status: 301,
-  });
+  try {
+    await supabase.auth.signOut();
+    return { success: true };
+  } catch (error) {
+    console.error("Error during sign out:", error);
+    return { success: false, error };
+  }
 }

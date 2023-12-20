@@ -1,5 +1,6 @@
 "use client";
 
+import { SignOut } from "@/app/auth/sign-out/route";
 import { User } from "@supabase/supabase-js";
 import React, { useState } from "react";
 
@@ -12,7 +13,19 @@ const UserDropdown = ({ user }: UserDropdownProps) => {
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-  const handleLogoutClick = async () => {};
+  const handleLogoutClick = async () => {
+    try {
+      const result = await SignOut();
+
+      if (result.success) {
+        window.location.href = "/sign-in";
+      } else {
+        console.error("Error logging out:", result.error);
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
 
   return (
     <div className="relative">
