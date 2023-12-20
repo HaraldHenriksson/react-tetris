@@ -13,7 +13,7 @@ const GameGrid = ({ width = 10, height = 20 }) => {
   return (
     <div className="flex justify-center items-center h-screen">
       <div
-        className="grid gap-1"
+        className="grid bg-white bg-opacity-10"
         style={{ gridTemplateColumns: `repeat(${width}, 2rem)` }}
       >
         {grid.map((row, rowIndex) =>
