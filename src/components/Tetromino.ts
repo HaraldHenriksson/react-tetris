@@ -58,3 +58,5 @@ const Tetrominos = {
     color: "customWhite",
   },
 };
+
+export default Tetrominos;
