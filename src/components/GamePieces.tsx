@@ -1,25 +1,32 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Cell from "./Cell";
+
+type Tetromino = keyof typeof Tetrominos;
 
 export default function GamePieces() {
-  const tetromino = "I";
+  const [tetromino, setTetromino] = useState<Tetromino>("I");
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
 
   const moveLeft = () => {
+    // check collision
     setPosition((prev) => ({ ...prev, x: prev.x - 1 }));
   };
 
   const moveRight = () => {
+    // check collision
     setPosition((prev) => ({ ...prev, x: prev.x + 1 }));
   };
 
   const moveDown = () => {
+    // check collision
     setPosition((prev) => ({ ...prev, y: prev.y + 1 }));
   };
 
   const rotate = () => {
+    // check collision
     setRotation((prev) => (prev + 1) % 4);
   };
 
@@ -50,5 +57,17 @@ export default function GamePieces() {
     };
   }, []);
 
-  return Tetrominos[tetromino];
+  const currentTetromino = Tetrominos[tetromino];
+
+  return (
+    <div>
+      {currentTetromino.shape.map((row, rowIndex) => (
+        <div key={rowIndex} style={{ display: "flex" }}>
+          {row.map((cell, cellIndex) => (
+            <Cell key={cellIndex} filled={cell !== 0} />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
 }
