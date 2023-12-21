@@ -20,7 +20,12 @@ const NavItem = ({
 );
 
 export default async function Navbar() {
-  const user = await getServerUser();
+  let user;
+  try {
+    user = await getServerUser();
+  } catch (error) {
+    console.error("Error fetching user:", error);
+  }
 
   return (
     <nav className="bg-customBlue">
