@@ -11,19 +11,27 @@ export default function Game() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
 
+  const gridWidth = 10;
+  const gridHeight = 20;
+
   const moveLeft = () => {
-    // check collision
-    setPosition((prev) => ({ ...prev, x: prev.x - 1 }));
+    setPosition((prev) => (prev.x > 0 ? { ...prev, x: prev.x - 1 } : prev));
   };
 
   const moveRight = () => {
-    // check collision
-    setPosition((prev) => ({ ...prev, x: prev.x + 1 }));
+    setPosition((prev) =>
+      prev.x < gridWidth - 1 ? { ...prev, x: prev.x + 1 } : prev
+    );
   };
 
   const moveDown = () => {
     // check collision
-    setPosition((prev) => ({ ...prev, y: prev.y + 1 }));
+    setPosition((prev) => {
+      if (prev.y < gridHeight - 4) {
+        return { ...prev, y: prev.y + 1 };
+      }
+      return prev;
+    });
   };
 
   const rotate = () => {
@@ -56,16 +64,18 @@ export default function Game() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [moveLeft, moveRight, moveDown, rotate]);
 
   return (
     <div className=" bg-customBlue flex justify-center items-center h-full">
-      <GameGrid />
-      <GamePieces
-        tetromino={tetrominoType}
-        position={position}
-        rotation={rotation}
-      />
+      <div className="relative w-auto h-auto">
+        <GameGrid width={10} height={20} />
+        <GamePieces
+          tetromino={tetrominoType}
+          position={{ x: position.x - 1, y: position.y }}
+          rotation={rotation}
+        />
+      </div>
     </div>
   );
 }

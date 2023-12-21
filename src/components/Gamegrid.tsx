@@ -11,7 +11,7 @@ const GameGrid = ({ width = 10, height = 20 }) => {
   const [grid, setGrid] = useState(() => createInitialGrid(width, height));
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-start h-screen">
       <div
         className="grid bg-white bg-opacity-10"
         style={{ gridTemplateColumns: `repeat(${width}, 2rem)` }}

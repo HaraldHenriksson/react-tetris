@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Cell from "./Cell";
+import Cell from "./GamePieceCell";
 import Tetrominos from "./Tetromino";
 
 type TetrominoKey = keyof typeof Tetrominos;
@@ -23,8 +22,8 @@ export default function GamePieces({
     <div
       style={{
         position: "absolute",
-        top: (position?.y || 0) * 20,
-        left: (position?.x || 0) * 20,
+        top: `${position.y * 32}px`,
+        left: `${position.x * 32}px`,
       }}
     >
       {currentTetromino.shape.map((row, rowIndex) => (
