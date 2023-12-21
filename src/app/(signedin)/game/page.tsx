@@ -1,8 +1,13 @@
+"use client";
+
 import GamePieces from "@/components/GamePieces";
 import GameGrid from "@/components/Gamegrid";
 import { useEffect, useState } from "react";
 
 export default function Game() {
+  const [tetrominoType, setTetrominoType] = useState<
+    "I" | "O" | "T" | "S" | "Z" | "J" | "L"
+  >("I");
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
 
@@ -56,7 +61,11 @@ export default function Game() {
   return (
     <div className=" bg-customBlue flex justify-center items-center h-full">
       <GameGrid />
-      <GamePieces />
+      <GamePieces
+        tetromino={tetrominoType}
+        position={position}
+        rotation={rotation}
+      />
     </div>
   );
 }
