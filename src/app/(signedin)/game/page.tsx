@@ -64,7 +64,7 @@ export default function Game() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [moveLeft, moveRight, moveDown, rotate]);
+  });
 
   return (
     <div className=" bg-customBlue flex justify-center items-center h-full">
