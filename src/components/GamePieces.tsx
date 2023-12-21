@@ -60,7 +60,13 @@ export default function GamePieces() {
   const currentTetromino = Tetrominos[tetromino];
 
   return (
-    <div>
+    <div
+      style={{
+        position: "absolute",
+        top: position.y * 20,
+        left: position.x * 20,
+      }}
+    >
       {currentTetromino.shape.map((row, rowIndex) => (
         <div key={rowIndex} style={{ display: "flex" }}>
           {row.map((cell, cellIndex) => (
