@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export default function GamePieces() {
   const tetromino = "I";
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [rotation, setRotation] = useState(0);
 
   const moveLeft = () => {
     setPosition((prev) => ({ ...prev, x: prev.x - 1 }));
@@ -16,6 +17,10 @@ export default function GamePieces() {
 
   const moveDown = () => {
     setPosition((prev) => ({ ...prev, y: prev.y + 1 }));
+  };
+
+  const rotate = () => {
+    setRotation((prev) => (prev + 1) % 4);
   };
 
   useEffect(() => {
