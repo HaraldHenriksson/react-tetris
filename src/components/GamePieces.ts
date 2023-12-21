@@ -35,6 +35,9 @@ export default function GamePieces() {
         case "ArrowDown":
           moveDown();
           break;
+        case "ArrowUp":
+          rotate();
+          break;
         default:
           break;
       }
