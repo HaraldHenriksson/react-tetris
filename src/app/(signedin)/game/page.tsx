@@ -21,6 +21,14 @@ export default function Game() {
     createInitialGrid(gridWidth, gridHeight)
   );
 
+  const checkCollision = (
+    newPosition: { x: number; y: number },
+    tetrominoShape: number[][]
+  ) => {
+    for (let y = 0; y < tetrominoShape.length; y++) {}
+    return false;
+  };
+
   const settleTetromino = (
     tetrominoShape: number[][],
     position: { x: number; y: number }
