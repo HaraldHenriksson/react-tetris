@@ -21,6 +21,25 @@ export default function Game() {
     createInitialGrid(gridWidth, gridHeight)
   );
 
+  const settleTetromino = (
+    tetrominoShape: number[][],
+    position: { x: number; y: number }
+  ) => {
+    setGrid((prevGrid) => {
+      const newGrid = prevGrid.map((row) => [...row]);
+
+      tetrominoShape.forEach((row, y) => {
+        row.forEach((cell, x) => {
+          if (cell !== 0) {
+            newGrid[y + position.y][x + position.x] = true;
+          }
+        });
+      });
+
+      return newGrid;
+    });
+  };
+
   const moveLeft = () => {
     setPosition((prev) => (prev.x > 0 ? { ...prev, x: prev.x - 1 } : prev));
   };
