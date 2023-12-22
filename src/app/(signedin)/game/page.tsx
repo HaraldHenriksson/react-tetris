@@ -75,13 +75,37 @@ export default function Game() {
   };
 
   const moveLeft = () => {
-    setPosition((prev) => (prev.x > 0 ? { ...prev, x: prev.x - 1 } : prev));
+    const newPosition = { x: position.x - 1, y: position.y };
+    const currentShape = Tetrominos[tetrominoType].shape;
+
+    if (
+      !checkCollision({
+        newPosition,
+        tetrominoShape: currentShape as number[][],
+        grid,
+        gridWidth,
+        gridHeight,
+      })
+    ) {
+      setPosition(newPosition);
+    }
   };
 
   const moveRight = () => {
-    setPosition((prev) =>
-      prev.x < gridWidth - 1 ? { ...prev, x: prev.x + 1 } : prev
-    );
+    const newPosition = { x: position.x + 1, y: position.y };
+    const currentShape = Tetrominos[tetrominoType].shape;
+
+    if (
+      !checkCollision({
+        newPosition,
+        tetrominoShape: currentShape as number[][],
+        grid,
+        gridWidth,
+        gridHeight,
+      })
+    ) {
+      setPosition(newPosition);
+    }
   };
 
   const moveDown = () => {
