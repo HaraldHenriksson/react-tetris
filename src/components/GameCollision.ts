@@ -1,7 +1,12 @@
+interface Cell {
+  filled: boolean;
+  type: "I" | "O" | "T" | "S" | "Z" | "J" | "L" | null;
+}
+
 interface CheckCollisionProps {
   newPosition: { x: number; y: number };
   tetrominoShape: number[][];
-  grid: boolean[][];
+  grid: Cell[][];
   gridWidth: number;
   gridHeight: number;
 }
@@ -25,12 +30,12 @@ export const checkCollision = ({
       const newX = x + newPosition.x;
 
       // check if cell is outside of the grid
-      if (
-        newY >= gridHeight ||
-        newX < 0 ||
-        newX >= gridWidth ||
-        grid[newY][newX]
-      ) {
+      if (newY >= gridHeight || newX < 0 || newX >= gridWidth) {
+        return true;
+      }
+
+      // check if collision with filled cess
+      if (grid[newY][newX].filled) {
         return true;
       }
     }

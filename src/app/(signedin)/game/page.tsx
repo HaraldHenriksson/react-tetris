@@ -6,6 +6,11 @@ import GameGrid from "@/components/Gamegrid";
 import Tetrominos from "@/components/Tetromino";
 import { useEffect, useState } from "react";
 
+interface Cell {
+  filled: boolean;
+  type: "I" | "O" | "T" | "S" | "Z" | "J" | "L" | null;
+}
+
 export default function Game() {
   const [tetrominoType, setTetrominoType] = useState<
     "I" | "O" | "T" | "S" | "Z" | "J" | "L"
@@ -13,9 +18,12 @@ export default function Game() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
 
-  const createInitialGrid = (width: number, height: number) => {
-    return Array.from({ length: height }, () => Array(width).fill(false));
+  const createInitialGrid = (width: number, height: number): Cell[][] => {
+    return Array.from({ length: height }, () =>
+      Array.from({ length: width }, () => ({ filled: false, type: null }))
+    );
   };
+
   const gridWidth = 10;
   const gridHeight = 20;
 
@@ -53,7 +61,10 @@ export default function Game() {
         row.forEach((cell, x) => {
           // if the cell is filled, update
           if (cell !== 0) {
-            newGrid[y + position.y][x + position.x] = true;
+            newGrid[y + position.y][x + position.x] = {
+              filled: true,
+              type: tetrominoType,
+            };
           }
         });
       });
@@ -128,7 +139,11 @@ export default function Game() {
   return (
     <div className=" bg-customBlue flex justify-center items-center h-full">
       <div className="relative w-auto h-auto">
-        <GameGrid grid={grid} width={10} height={20} />
+        <GameGrid
+          grid={grid.map((row) => row.map((cell) => cell.filled))}
+          width={10}
+          height={20}
+        />
         <GamePieces
           tetromino={tetrominoType}
           position={{ x: position.x - 1, y: position.y }}
