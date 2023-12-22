@@ -1,5 +1,6 @@
 "use client";
 
+import { checkCollision } from "@/components/GameCollision";
 import GamePieces from "@/components/GamePieces";
 import GameGrid from "@/components/Gamegrid";
 import { useEffect, useState } from "react";
@@ -55,13 +56,22 @@ export default function Game() {
   };
 
   const moveDown = () => {
-    // check collision
-    setPosition((prev) => {
-      if (prev.y < gridHeight - 4) {
-        return { ...prev, y: prev.y + 1 };
-      }
-      return prev;
-    });
+    const newPosition = { x: position.x, y: position.y + 1 };
+    // const currentShape = Tetrominos[tetrominoType].shape;
+
+    if (
+      checkCollision({
+        newPosition,
+        tetrominoShape: currentShape,
+        grid,
+        gridWidth,
+        gridHeight,
+      })
+    ) {
+      settleTetromino(currentShape, position);
+    } else {
+      setPosition(newPosition);
+    }
   };
 
   const rotate = () => {
