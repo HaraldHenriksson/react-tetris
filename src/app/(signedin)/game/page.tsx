@@ -87,6 +87,7 @@ export default function Game() {
       })
     ) {
       settleTetromino(currentShape as number[][], position);
+      spawnTetromino();
     } else {
       setPosition(newPosition);
     }
