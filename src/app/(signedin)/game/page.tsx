@@ -170,7 +170,7 @@ export default function Game() {
         />
         <GamePieces
           tetromino={tetrominoType}
-          position={{ x: position.x - 1, y: position.y }}
+          position={position}
           rotation={rotation}
         />
       </div>
