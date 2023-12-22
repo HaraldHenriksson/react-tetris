@@ -22,6 +22,13 @@ export default function Game() {
     createInitialGrid(gridWidth, gridHeight)
   );
 
+  const spawnTetromino = () => {
+    const types = ["I", "O", "T", "S", "Z", "J", "L"];
+
+    setTetrominoType(types[Math.floor(Math.random() * types.length)]);
+
+    setPosition({ x: 4, y: 0 });
+
   const settleTetromino = (
     tetrominoShape: number[][],
     position: { x: number; y: number }
