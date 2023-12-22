@@ -25,17 +25,21 @@ export default function Game() {
     tetrominoShape: number[][],
     position: { x: number; y: number }
   ) => {
+    // update grid
     setGrid((prevGrid) => {
       const newGrid = prevGrid.map((row) => [...row]);
 
+      // loop over each cell in the tetromino
       tetrominoShape.forEach((row, y) => {
         row.forEach((cell, x) => {
+          // if the cell is filled, update
           if (cell !== 0) {
             newGrid[y + position.y][x + position.x] = true;
           }
         });
       });
 
+      // Return the new grid
       return newGrid;
     });
   };
