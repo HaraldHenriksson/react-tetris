@@ -3,6 +3,7 @@
 import { checkCollision } from "@/components/GameCollision";
 import GamePieces from "@/components/GamePieces";
 import GameGrid from "@/components/Gamegrid";
+import Tetrominos from "@/components/Tetromino";
 import { useEffect, useState } from "react";
 
 export default function Game() {
@@ -25,9 +26,19 @@ export default function Game() {
   const spawnTetromino = () => {
     const types = ["I", "O", "T", "S", "Z", "J", "L"];
 
-    setTetrominoType(types[Math.floor(Math.random() * types.length)]);
+    setTetrominoType(
+      types[Math.floor(Math.random() * types.length)] as
+        | "I"
+        | "O"
+        | "T"
+        | "S"
+        | "Z"
+        | "J"
+        | "L"
+    );
 
     setPosition({ x: 4, y: 0 });
+  };
 
   const settleTetromino = (
     tetrominoShape: number[][],
@@ -64,18 +75,18 @@ export default function Game() {
 
   const moveDown = () => {
     const newPosition = { x: position.x, y: position.y + 1 };
-    // const currentShape = Tetrominos[tetrominoType].shape;
+    const currentShape = Tetrominos[tetrominoType].shape;
 
     if (
       checkCollision({
         newPosition,
-        tetrominoShape: currentShape,
+        tetrominoShape: currentShape as number[][],
         grid,
         gridWidth,
         gridHeight,
       })
     ) {
-      settleTetromino(currentShape, position);
+      settleTetromino(currentShape as number[][], position);
     } else {
       setPosition(newPosition);
     }
