@@ -10,6 +10,14 @@ const createInitialGrid = (width: number, height: number) => {
 const GameGrid = ({ width = 10, height = 20 }) => {
   const [grid, setGrid] = useState(() => createInitialGrid(width, height));
 
+  const settleTetromino = () => {
+    setGrid((prevGrid) => {
+      const newGrid = prevGrid.map((row) => [...row]);
+
+      return newGrid;
+    });
+  };
+
   return (
     <div className="flex justify-center items-start h-screen">
       <div
