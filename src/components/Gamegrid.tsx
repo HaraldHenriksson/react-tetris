@@ -7,7 +7,13 @@ const createInitialGrid = (width: number, height: number) => {
   return Array.from({ length: height }, () => Array(width).fill(false));
 };
 
-const GameGrid = ({
+interface GameGridProps {
+  width?: number;
+  height?: number;
+  grid: boolean[][];
+}
+
+const GameGrid: React.FC<GameGridProps> = ({
   width = 10,
   height = 20,
   grid,
