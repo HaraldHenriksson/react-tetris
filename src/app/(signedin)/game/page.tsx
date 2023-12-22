@@ -11,8 +11,15 @@ export default function Game() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
 
+  const createInitialGrid = (width: number, height: number) => {
+    return Array.from({ length: height }, () => Array(width).fill(false));
+  };
   const gridWidth = 10;
   const gridHeight = 20;
+
+  const [grid, setGrid] = useState(() =>
+    createInitialGrid(gridWidth, gridHeight)
+  );
 
   const moveLeft = () => {
     setPosition((prev) => (prev.x > 0 ? { ...prev, x: prev.x - 1 } : prev));
@@ -69,7 +76,7 @@ export default function Game() {
   return (
     <div className=" bg-customBlue flex justify-center items-center h-full">
       <div className="relative w-auto h-auto">
-        <GameGrid width={10} height={20} />
+        <GameGrid grid={grid} width={10} height={20} />
         <GamePieces
           tetromino={tetrominoType}
           position={{ x: position.x - 1, y: position.y }}
