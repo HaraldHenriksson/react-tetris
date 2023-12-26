@@ -78,6 +78,8 @@ export default function Game() {
       // Return the new grid
       return newGrid;
     });
+
+    clearLines();
   };
 
   const moveLeft = () => {
@@ -142,6 +144,32 @@ export default function Game() {
   useKeyboardControls(moveLeft, moveRight, moveDown, rotate);
 
   useAutoDrop(moveDown, 1000);
+
+  const clearLines = () => {
+    setGrid((prevGrid) => {
+      // filled rows
+      const rowsWithoutFilled = prevGrid.filter(
+        (row) => !row.every((cell) => cell.filled)
+      );
+
+      // number of filled rows
+      const filledrowsCount = gridHeight - rowsWithoutFilled.length;
+
+      // if filled rows
+      if (filledrowsCount > 0) {
+        // new empty rows
+        const newRows = Array(filledrowsCount)
+          .fill(0)
+          .map(() => Array(gridWidth).fill({ filled: false, color: "" }));
+
+        // new grid
+        return [...newRows, ...rowsWithoutFilled];
+      }
+
+      // If no filled rows, return the original grid
+      return prevGrid;
+    });
+  };
 
   return (
     <div className=" bg-customBlue flex justify-center items-center h-full">
