@@ -141,15 +141,19 @@ export default function Game() {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
         case "ArrowLeft":
+          event.preventDefault();
           moveLeft();
           break;
         case "ArrowRight":
+          event.preventDefault();
           moveRight();
           break;
         case "ArrowDown":
+          event.preventDefault();
           moveDown();
           break;
         case "ArrowUp":
+          event.preventDefault();
           rotate();
           break;
         default:
@@ -162,7 +166,7 @@ export default function Game() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  });
+  }, [moveLeft, moveRight, moveDown, rotate]);
 
   return (
     <div className=" bg-customBlue flex justify-center items-center h-full">
