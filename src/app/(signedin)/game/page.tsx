@@ -53,7 +53,6 @@ export default function Game() {
     if (checkGameOver()) {
       setIsGameOver(true);
       // game over logic
-      location.reload();
     }
 
     setPosition({ x: 4, y: 0 });
@@ -194,14 +193,19 @@ export default function Game() {
   };
 
   return (
-    <div className=" bg-customBlue flex justify-center items-center h-full">
-      <div className="relative w-auto h-auto">
+    <div className="bg-customBlue min-h-screen flex justify-center items-center">
+      <div className="relative w-auto">
         <GameGrid grid={grid} width={10} height={20} />
         <GamePieces
           tetromino={tetrominoType}
           position={position}
           rotation={rotation}
         />
+        {isGameOver && (
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10">
+            <div className="text-4xl text-white">Game Over</div>
+          </div>
+        )}
       </div>
     </div>
   );

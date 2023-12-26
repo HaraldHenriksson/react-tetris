@@ -19,7 +19,7 @@ const GameGrid: React.FC<GameGridProps> = ({
   grid,
 }) => {
   return (
-    <div className="flex justify-center items-start h-screen">
+    <div className="flex justify-center items-start">
       <div
         className="grid bg-white bg-opacity-10"
         style={{ gridTemplateColumns: `repeat(${width}, 2rem)` }}
