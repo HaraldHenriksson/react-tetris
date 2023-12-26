@@ -5,6 +5,7 @@ import GamePieces from "@/components/GamePieces";
 import GameGrid from "@/components/Gamegrid";
 import Tetrominos from "@/components/Tetromino";
 import useAutoDrop from "@/hooks/useAutoDrop";
+import useKeyboardControls from "@/hooks/useKeyboardControls";
 import { useEffect, useState } from "react";
 
 interface Cell {
@@ -138,36 +139,7 @@ export default function Game() {
     setRotation((prev) => (prev + 1) % 4);
   };
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      switch (event.key) {
-        case "ArrowLeft":
-          event.preventDefault();
-          moveLeft();
-          break;
-        case "ArrowRight":
-          event.preventDefault();
-          moveRight();
-          break;
-        case "ArrowDown":
-          event.preventDefault();
-          moveDown();
-          break;
-        case "ArrowUp":
-          event.preventDefault();
-          rotate();
-          break;
-        default:
-          break;
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [moveLeft, moveRight, moveDown, rotate]);
+  useKeyboardControls(moveLeft, moveRight, moveDown, rotate);
 
   useAutoDrop(moveDown, 1000);
 
