@@ -4,6 +4,7 @@ import { checkCollision } from "@/components/GameCollision";
 import GamePieces from "@/components/GamePieces";
 import GameGrid from "@/components/Gamegrid";
 import Tetrominos from "@/components/Tetromino";
+import useAutoDrop from "@/hooks/useAutoDrop";
 import { useEffect, useState } from "react";
 
 interface Cell {
@@ -167,6 +168,8 @@ export default function Game() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [moveLeft, moveRight, moveDown, rotate]);
+
+  useAutoDrop(moveDown, 1000);
 
   return (
     <div className=" bg-customBlue flex justify-center items-center h-full">
