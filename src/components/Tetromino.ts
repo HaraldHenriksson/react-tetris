@@ -1,3 +1,5 @@
+import { tetrominoColors } from "./ColorsConfig";
+
 const Tetrominos = {
   0: { shape: [[0]], color: "0, 0, 0" }, // Empty cell
   I: {
@@ -7,7 +9,7 @@ const Tetrominos = {
       [0, "I", 0, 0],
       [0, "I", 0, 0],
     ],
-    color: "customBlue",
+    color: tetrominoColors.I,
   },
 
   J: {
@@ -16,7 +18,7 @@ const Tetrominos = {
       [0, "J", 0],
       ["J", "J", 0],
     ],
-    color: "customOrange",
+    color: tetrominoColors.J,
   },
   L: {
     shape: [
@@ -24,14 +26,14 @@ const Tetrominos = {
       [0, "L", 0],
       [0, "L", "L"],
     ],
-    color: "customPurple",
+    color: tetrominoColors.L,
   },
   O: {
     shape: [
       ["O", "O"],
       ["O", "O"],
     ],
-    color: "customYellow",
+    color: tetrominoColors.O,
   },
   S: {
     shape: [
@@ -39,7 +41,7 @@ const Tetrominos = {
       ["S", "S", 0],
       [0, 0, 0],
     ],
-    color: "customGreen",
+    color: tetrominoColors.S,
   },
   T: {
     shape: [
@@ -47,7 +49,7 @@ const Tetrominos = {
       ["T", "T", "T"],
       [0, "T", 0],
     ],
-    color: "customRed",
+    color: tetrominoColors.T,
   },
   Z: {
     shape: [
@@ -55,7 +57,7 @@ const Tetrominos = {
       [0, "Z", "Z"],
       [0, 0, 0],
     ],
-    color: "customWhite",
+    color: tetrominoColors.Z,
   },
 };
 

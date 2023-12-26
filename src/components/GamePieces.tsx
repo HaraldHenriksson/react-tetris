@@ -17,6 +17,7 @@ export default function GamePieces({
   rotation,
 }: GamePiecesProps) {
   const currentTetromino = Tetrominos[tetromino];
+  const color = currentTetromino.color;
 
   return (
     <div
@@ -29,7 +30,7 @@ export default function GamePieces({
       {currentTetromino.shape.map((row, rowIndex) => (
         <div key={rowIndex} style={{ display: "flex" }}>
           {row.map((cell, cellIndex) => (
-            <Cell key={cellIndex} filled={cell !== 0} />
+            <Cell key={cellIndex} filled={cell !== 0} color={color} />
           ))}
         </div>
       ))}

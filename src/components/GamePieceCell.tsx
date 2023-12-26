@@ -1,8 +1,14 @@
 import React from "react";
 
-export default function Cell({ filled }: { filled: boolean }) {
-  const cellStyle = `w-8 h-8 ${
-    filled ? "bg-blue-500 bg-opacity-80" : "bg-transparent"
-  }`;
-  return <div className={cellStyle} />;
+interface CellProps {
+  filled: boolean;
+  color?: string;
+}
+
+export default function Cell({ filled, color }: CellProps) {
+  const cellStyle = filled
+    ? { width: "32px", height: "32px", backgroundColor: color, opacity: 0.8 }
+    : { width: "32px", height: "32px", backgroundColor: "transparent" };
+
+  return <div style={cellStyle} />;
 }
