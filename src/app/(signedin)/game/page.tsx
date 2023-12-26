@@ -21,6 +21,8 @@ export default function Game() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
 
+  const [isGameOver, setIsGameOver] = useState(false);
+
   const createInitialGrid = (width: number, height: number): Cell[][] => {
     return Array.from({ length: height }, () =>
       Array.from({ length: width }, () => ({ filled: false, type: null }))
@@ -47,6 +49,12 @@ export default function Game() {
         | "J"
         | "L"
     );
+
+    if (checkGameOver()) {
+      setIsGameOver(true);
+      // game over logic
+      location.reload();
+    }
 
     setPosition({ x: 4, y: 0 });
   };
@@ -168,6 +176,20 @@ export default function Game() {
 
       // If no filled rows, return the original grid
       return prevGrid;
+    });
+  };
+
+  const checkGameOver = () => {
+    const initialPosition = { x: 4, y: 0 }; // initial position
+    const currentShape = Tetrominos[tetrominoType].shape;
+
+    // check collision at the initial position
+    return checkCollision({
+      newPosition: initialPosition,
+      tetrominoShape: currentShape as number[][],
+      grid,
+      gridWidth,
+      gridHeight,
     });
   };
 
