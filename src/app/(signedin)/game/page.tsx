@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 interface Cell {
   filled: boolean;
   type: "I" | "O" | "T" | "S" | "Z" | "J" | "L" | null;
+  color?: string;
 }
 
 export default function Game() {
@@ -52,6 +53,8 @@ export default function Game() {
     tetrominoShape: number[][],
     position: { x: number; y: number }
   ) => {
+    const color = Tetrominos[tetrominoType].color;
+
     // update grid
     setGrid((prevGrid) => {
       const newGrid = prevGrid.map((row) => [...row]);
@@ -64,6 +67,7 @@ export default function Game() {
             newGrid[y + position.y][x + position.x] = {
               filled: true,
               type: tetrominoType,
+              color: color,
             };
           }
         });
@@ -163,11 +167,7 @@ export default function Game() {
   return (
     <div className=" bg-customBlue flex justify-center items-center h-full">
       <div className="relative w-auto h-auto">
-        <GameGrid
-          grid={grid.map((row) => row.map((cell) => cell.filled))}
-          width={10}
-          height={20}
-        />
+        <GameGrid grid={grid} width={10} height={20} />
         <GamePieces
           tetromino={tetrominoType}
           position={position}

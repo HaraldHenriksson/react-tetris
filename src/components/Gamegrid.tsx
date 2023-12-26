@@ -1,26 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
 import Cell from "./Cell";
 
-const createInitialGrid = (width: number, height: number) => {
-  return Array.from({ length: height }, () => Array(width).fill(false));
-};
+interface Cell {
+  filled: boolean;
+  color?: string;
+}
 
 interface GameGridProps {
   width?: number;
   height?: number;
-  grid: boolean[][];
+  grid: Cell[][];
 }
 
 const GameGrid: React.FC<GameGridProps> = ({
   width = 10,
   height = 20,
   grid,
-}: {
-  width?: number;
-  height?: number;
-  grid: boolean[][];
 }) => {
   return (
     <div className="flex justify-center items-start h-screen">
@@ -29,8 +25,12 @@ const GameGrid: React.FC<GameGridProps> = ({
         style={{ gridTemplateColumns: `repeat(${width}, 2rem)` }}
       >
         {grid.map((row, rowIndex) =>
-          row.map((filled, colIndex) => (
-            <Cell key={`${rowIndex}-${colIndex}`} filled={filled} />
+          row.map((cell, colIndex) => (
+            <Cell
+              key={`${rowIndex}-${colIndex}`}
+              filled={cell.filled}
+              color={cell.color}
+            />
           ))
         )}
       </div>
