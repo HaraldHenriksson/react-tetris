@@ -6,7 +6,8 @@ import GameGrid from "@/components/Gamegrid";
 import Tetrominos from "@/components/Tetromino";
 import useAutoDrop from "@/hooks/useAutoDrop";
 import useKeyboardControls from "@/hooks/useKeyboardControls";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { getCurrentTetrominoShape } from "@/utils/tetrisUtils";
 
 interface Cell {
   filled: boolean;
@@ -63,13 +64,14 @@ export default function Game() {
     position: { x: number; y: number }
   ) => {
     const color = Tetrominos[tetrominoType].color;
+    const currentShape = getCurrentTetrominoShape(tetrominoType, rotation);
 
     // update grid
     setGrid((prevGrid) => {
       const newGrid = prevGrid.map((row) => [...row]);
 
       // loop over each cell in the tetromino
-      tetrominoShape.forEach((row, y) => {
+      currentShape.forEach((row, y) => {
         row.forEach((cell, x) => {
           // if the cell is filled, update
           if (cell !== 0) {
@@ -91,7 +93,7 @@ export default function Game() {
 
   const moveLeft = () => {
     const newPosition = { x: position.x - 1, y: position.y };
-    const currentShape = Tetrominos[tetrominoType].shape;
+    const currentShape = getCurrentTetrominoShape(tetrominoType, rotation);
 
     if (
       !checkCollision({
@@ -108,7 +110,7 @@ export default function Game() {
 
   const moveRight = () => {
     const newPosition = { x: position.x + 1, y: position.y };
-    const currentShape = Tetrominos[tetrominoType].shape;
+    const currentShape = getCurrentTetrominoShape(tetrominoType, rotation);
 
     if (
       !checkCollision({
@@ -125,7 +127,7 @@ export default function Game() {
 
   const moveDown = () => {
     const newPosition = { x: position.x, y: position.y + 1 };
-    const currentShape = Tetrominos[tetrominoType].shape;
+    const currentShape = getCurrentTetrominoShape(tetrominoType, rotation);
 
     if (
       checkCollision({
@@ -180,7 +182,7 @@ export default function Game() {
 
   const checkGameOver = () => {
     const initialPosition = { x: 4, y: 0 }; // initial position
-    const currentShape = Tetrominos[tetrominoType].shape;
+    const currentShape = getCurrentTetrominoShape(tetrominoType, rotation);
 
     // check collision at the initial position
     return checkCollision({
