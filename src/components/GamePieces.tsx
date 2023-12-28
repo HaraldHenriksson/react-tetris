@@ -27,10 +27,10 @@ export default function GamePieces({
         left: `${position.x * 32}px`,
       }}
     >
-      {currentTetromino.shape.map((row, rowIndex) => (
+      {currentTetromino.shapes.map((row, rowIndex) => (
         <div key={rowIndex} style={{ display: "flex" }}>
           {row.map((cell, cellIndex) => (
-            <Cell key={cellIndex} filled={cell !== 0} color={color} />
+            <Cell key={cellIndex} filled={cell.length !== 0} color={color} />
           ))}
         </div>
       ))}
