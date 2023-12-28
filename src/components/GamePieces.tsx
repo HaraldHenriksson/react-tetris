@@ -2,6 +2,7 @@
 
 import Cell from "./GamePieceCell";
 import Tetrominos from "./Tetromino";
+import { getCurrentTetrominoShape } from "@/utils/tetrisUtils";
 
 type TetrominoKey = keyof typeof Tetrominos;
 
@@ -17,6 +18,7 @@ export default function GamePieces({
   rotation,
 }: GamePiecesProps) {
   const currentTetromino = Tetrominos[tetromino];
+  const currentShape = getCurrentTetrominoShape(tetromino, rotation);
   const color = currentTetromino.color;
 
   return (
@@ -27,10 +29,10 @@ export default function GamePieces({
         left: `${position.x * 32}px`,
       }}
     >
-      {currentTetromino.shapes.map((row, rowIndex) => (
+      {currentShape.map((row, rowIndex) => (
         <div key={rowIndex} style={{ display: "flex" }}>
           {row.map((cell, cellIndex) => (
-            <Cell key={cellIndex} filled={cell.length !== 0} color={color} />
+            <Cell key={cellIndex} filled={cell !== 0} color={color} />
           ))}
         </div>
       ))}
