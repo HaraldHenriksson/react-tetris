@@ -30,6 +30,7 @@ export default function Game() {
 
   const [score, setScore] = useState(0);
   const [level, setLevel] = useState(1);
+  const [linesCleared, setLinesCleared] = useState(0);
 
   const createInitialGrid = (width: number, height: number): Cell[][] => {
     return Array.from({ length: height }, () =>
@@ -182,6 +183,15 @@ export default function Game() {
         const scoreForLines = calculateScoreForLines(level, filledrowsCount);
         setScore((prevScore) => calculateTotalScore(prevScore, scoreForLines));
 
+        setLinesCleared((prevLines) => {
+          const newTotalLines = prevLines + filledrowsCount;
+          // Level up for every 10 lines
+          if (Math.floor(newTotalLines / 10) > Math.floor(prevLines / 10)) {
+            setLevel((prevLevel) => prevLevel + 1);
+          }
+          return newTotalLines;
+        });
+
         // new grid
         return [...newRows, ...rowsWithoutFilled];
       }
@@ -210,6 +220,7 @@ export default function Game() {
       <div>
         <p>Score: {score}</p>
         <p>Level: {level}</p>
+        <p>Lines Cleared: {linesCleared}</p>
       </div>
       <div className="relative w-auto">
         <GameGrid grid={grid} width={10} height={20} />
