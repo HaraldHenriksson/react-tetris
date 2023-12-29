@@ -8,6 +8,10 @@ import useAutoDrop from "@/hooks/useAutoDrop";
 import useKeyboardControls from "@/hooks/useKeyboardControls";
 import { useState } from "react";
 import { getCurrentTetrominoShape } from "@/utils/tetrisUtils";
+import {
+  calculateScoreForLines,
+  calculateTotalScore,
+} from "@/utils/scoreUtils";
 
 interface Cell {
   filled: boolean;
@@ -23,6 +27,9 @@ export default function Game() {
   const [rotation, setRotation] = useState(0);
 
   const [isGameOver, setIsGameOver] = useState(false);
+
+  const [score, setScore] = useState(0);
+  const [level, setLevel] = useState(1);
 
   const createInitialGrid = (width: number, height: number): Cell[][] => {
     return Array.from({ length: height }, () =>
@@ -171,6 +178,10 @@ export default function Game() {
           .fill(0)
           .map(() => Array(gridWidth).fill({ filled: false, color: "" }));
 
+        // Calculate score for cleared lines and add it to the total score
+        const scoreForLines = calculateScoreForLines(level, filledrowsCount);
+        setScore((prevScore) => calculateTotalScore(prevScore, scoreForLines));
+
         // new grid
         return [...newRows, ...rowsWithoutFilled];
       }
@@ -196,6 +207,10 @@ export default function Game() {
 
   return (
     <div className="bg-customBlue min-h-screen flex justify-center items-center">
+      <div>
+        <p>Score: {score}</p>
+        <p>Level: {level}</p>
+      </div>
       <div className="relative w-auto">
         <GameGrid grid={grid} width={10} height={20} />
         <GamePieces
