@@ -154,8 +154,27 @@ export default function Game() {
   };
 
   const rotate = () => {
-    // check collision
-    setRotation((prev) => (prev + 1) % 4);
+    setRotation((prev) => {
+      const newRotation = (prev + 1) % 4;
+      const currentShape = getCurrentTetrominoShape(tetrominoType, newRotation);
+
+      // Check if the new shape would be outside the grid
+      const collision = checkCollision({
+        newPosition: position,
+        tetrominoShape: currentShape,
+        grid,
+        gridWidth,
+        gridHeight,
+      });
+
+      // If collision, don't rotate
+      if (collision) {
+        return prev;
+      }
+
+      // If no collision, rotate
+      return newRotation;
+    });
   };
 
   useKeyboardControls(moveLeft, moveRight, moveDown, rotate);
