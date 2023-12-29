@@ -160,7 +160,7 @@ export default function Game() {
 
   useKeyboardControls(moveLeft, moveRight, moveDown, rotate);
 
-  useAutoDrop(moveDown, 1000);
+  useAutoDrop(moveDown, score);
 
   const clearLines = () => {
     setGrid((prevGrid) => {
