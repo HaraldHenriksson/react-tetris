@@ -10,16 +10,19 @@ interface GamePiecesProps {
   tetromino: TetrominoKey;
   position: { x: number; y: number };
   rotation: number;
+  isGhost?: boolean;
 }
 
 export default function GamePieces({
   tetromino,
   position,
   rotation,
+  isGhost = false,
 }: GamePiecesProps) {
   const currentTetromino = Tetrominos[tetromino];
   const currentShape = getCurrentTetrominoShape(tetromino, rotation);
   const color = currentTetromino.color;
+  const opacity = isGhost ? 0.5 : 1;
 
   return (
     <div
@@ -27,6 +30,7 @@ export default function GamePieces({
         position: "absolute",
         top: `${position.y * 32}px`,
         left: `${position.x * 32}px`,
+        opacity,
       }}
     >
       {currentShape.map((row, rowIndex) => (

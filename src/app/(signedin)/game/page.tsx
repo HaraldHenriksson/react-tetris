@@ -234,6 +234,27 @@ export default function Game() {
     });
   };
 
+  const calculateGhostPosition = () => {
+    const currentShape = getCurrentTetrominoShape(tetrominoType, rotation);
+    let ghostPosition = { ...position };
+
+    while (
+      !checkCollision({
+        newPosition: { x: ghostPosition.x, y: ghostPosition.y + 1 },
+        tetrominoShape: currentShape as number[][],
+        grid,
+        gridWidth,
+        gridHeight,
+      })
+    ) {
+      ghostPosition.y++;
+    }
+
+    return ghostPosition;
+  };
+
+  const ghostPosition = calculateGhostPosition();
+
   return (
     <div className="bg-customBlue min-h-screen flex justify-center items-center">
       <div>
@@ -247,6 +268,14 @@ export default function Game() {
           tetromino={tetrominoType}
           position={position}
           rotation={rotation}
+          isGhost={false}
+        />
+
+        <GamePieces
+          tetromino={tetrominoType}
+          position={ghostPosition}
+          rotation={rotation}
+          isGhost={true}
         />
         {isGameOver && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10">
