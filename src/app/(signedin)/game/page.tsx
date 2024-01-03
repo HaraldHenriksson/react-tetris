@@ -12,6 +12,7 @@ import {
   calculateScoreForLines,
   calculateTotalScore,
 } from "@/utils/scoreUtils";
+import PausePlayIcon from "@/components/PausePlayIcon";
 
 interface Cell {
   filled: boolean;
@@ -25,6 +26,8 @@ export default function Game() {
   >("I");
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
+
+  const [isPaused, setIsPaused] = useState(false);
 
   const [isGameOver, setIsGameOver] = useState(false);
 
@@ -255,6 +258,10 @@ export default function Game() {
 
   const ghostPosition = calculateGhostPosition();
 
+  const togglePause = () => {
+    setIsPaused(!isPaused);
+  };
+
   return (
     <div className="bg-customBlue min-h-screen flex justify-center items-center">
       <div className="text-white font-digital p-4 bg-gray-800 bg-opacity-75 rounded-lg shadow-xl">
@@ -267,6 +274,7 @@ export default function Game() {
         <p className="text-2xl">
           Lines: <span className="text-red-400">{linesCleared}</span>
         </p>
+        <PausePlayIcon isPaused={isPaused} onClick={() => togglePause()} />
       </div>
       <div className="relative w-auto">
         <GameGrid grid={grid} width={10} height={20} />
