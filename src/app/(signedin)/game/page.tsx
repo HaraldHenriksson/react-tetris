@@ -257,10 +257,16 @@ export default function Game() {
 
   return (
     <div className="bg-customBlue min-h-screen flex justify-center items-center">
-      <div>
-        <p>Score: {score}</p>
-        <p>Level: {level}</p>
-        <p>Lines Cleared: {linesCleared}</p>
+      <div className="text-white font-digital p-4 bg-gray-800 bg-opacity-75 rounded-lg shadow-xl">
+        <p className="text-2xl mb-2">
+          Score: <span className="text-green-400">{score}</span>
+        </p>
+        <p className="text-2xl mb-2">
+          Level: <span className="text-blue-400">{level}</span>
+        </p>
+        <p className="text-2xl">
+          Lines: <span className="text-red-400">{linesCleared}</span>
+        </p>
       </div>
       <div className="relative w-auto">
         <GameGrid grid={grid} width={10} height={20} />
