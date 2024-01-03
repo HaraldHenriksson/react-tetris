@@ -1,3 +1,4 @@
+import { getServerUser } from "@/app/lib/user/server";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
@@ -17,9 +18,16 @@ export async function POST(request: Request) {
     },
   });
 
+  const user = await getServerUser();
+
   if (error) {
+    const errorMessage =
+      error.message === "User already registered"
+        ? "User already exists. Please log in."
+        : "Could not authenticate user";
+
     return NextResponse.redirect(
-      `${requestUrl.origin}/login?error=Could not authenticate user`,
+      `${requestUrl.origin}/sign-up?error=${errorMessage}`,
       {
         // a 301 status is required to redirect from a POST to a GET route
         status: 301,
@@ -28,10 +36,7 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.redirect(
-    `${requestUrl.origin}/login?message=Check email to continue sign in process`,
-    {
-      // a 301 status is required to redirect from a POST to a GET route
-      status: 301,
-    }
+    user ? `${requestUrl.origin}/home` : `${requestUrl.origin}/login`,
+    { status: 301 }
   );
 }
