@@ -7,7 +7,7 @@ const PausePlayIcon: React.FC<PausePlayIconProps> = ({ isPaused, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="flex items-center justify-center w-full py-2 mt-4 text-white rounded hover:bg-gray-700 transition duration-300 text-2xl cursor-pointer"
+      className="flex items-center justify-center w-full py-2 text-white rounded hover:bg-gray-700 transition duration-300 text-2xl cursor-pointer"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
