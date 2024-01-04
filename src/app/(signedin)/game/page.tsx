@@ -13,6 +13,7 @@ import {
   calculateTotalScore,
 } from "@/utils/scoreUtils";
 import PausePlayIcon from "@/components/PausePlayIcon";
+import useTetrominoControls from "@/hooks/useTetrominoControls";
 
 interface Cell {
   filled: boolean;
@@ -25,7 +26,7 @@ export default function Game() {
     "I" | "O" | "T" | "S" | "Z" | "J" | "L"
   >("I");
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [rotation, setRotation] = useState(0);
+  const [rotation, setRotation] = useState<number>(0);
 
   const [isPaused, setIsPaused] = useState(false);
 
@@ -102,83 +103,18 @@ export default function Game() {
     clearLines();
   };
 
-  const moveLeft = () => {
-    const newPosition = { x: position.x - 1, y: position.y };
-    const currentShape = getCurrentTetrominoShape(tetrominoType, rotation);
-
-    if (
-      !checkCollision({
-        newPosition,
-        tetrominoShape: currentShape as number[][],
-        grid,
-        gridWidth,
-        gridHeight,
-      })
-    ) {
-      setPosition(newPosition);
-    }
-  };
-
-  const moveRight = () => {
-    const newPosition = { x: position.x + 1, y: position.y };
-    const currentShape = getCurrentTetrominoShape(tetrominoType, rotation);
-
-    if (
-      !checkCollision({
-        newPosition,
-        tetrominoShape: currentShape as number[][],
-        grid,
-        gridWidth,
-        gridHeight,
-      })
-    ) {
-      setPosition(newPosition);
-    }
-  };
-
-  const moveDown = () => {
-    const newPosition = { x: position.x, y: position.y + 1 };
-    const currentShape = getCurrentTetrominoShape(tetrominoType, rotation);
-
-    if (
-      checkCollision({
-        newPosition,
-        tetrominoShape: currentShape as number[][],
-        grid,
-        gridWidth,
-        gridHeight,
-      })
-    ) {
-      settleTetromino(currentShape as number[][], position);
-      spawnTetromino();
-    } else {
-      setPosition(newPosition);
-    }
-  };
-
-  const rotate = () => {
-    setRotation((prev) => {
-      const newRotation = (prev + 1) % 4;
-      const currentShape = getCurrentTetrominoShape(tetrominoType, newRotation);
-
-      // Check if the new shape would be outside the grid
-      const collision = checkCollision({
-        newPosition: position,
-        tetrominoShape: currentShape,
-        grid,
-        gridWidth,
-        gridHeight,
-      });
-
-      // If collision, don't rotate
-      if (collision) {
-        return prev;
-      }
-
-      // If no collision, rotate
-      return newRotation;
-    });
-  };
+  const { moveLeft, moveRight, moveDown, rotate } = useTetrominoControls({
+    tetrominoType,
+    position,
+    setPosition,
+    rotation,
+    setRotation,
+    grid,
+    gridWidth,
+    gridHeight,
+    settleTetromino,
+    spawnTetromino,
+  });
 
   useKeyboardControls(moveLeft, moveRight, moveDown, rotate, isPaused);
 
