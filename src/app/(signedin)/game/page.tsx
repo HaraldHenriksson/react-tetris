@@ -180,9 +180,9 @@ export default function Game() {
     });
   };
 
-  useKeyboardControls(moveLeft, moveRight, moveDown, rotate);
+  useKeyboardControls(moveLeft, moveRight, moveDown, rotate, isPaused);
 
-  useAutoDrop(moveDown, score);
+  useAutoDrop(moveDown, score, isPaused);
 
   const clearLines = () => {
     setGrid((prevGrid) => {
@@ -265,7 +265,7 @@ export default function Game() {
   return (
     <div className="bg-customBlue min-h-screen flex justify-center items-center">
       <div className="text-white font-digital p-4 bg-gray-800 bg-opacity-75 rounded-lg shadow-xl">
-        <PausePlayIcon isPaused={isPaused} onClick={() => togglePause()} />
+        <PausePlayIcon isPaused={isPaused} onClick={togglePause} />
         <p className="text-2xl mb-2">
           Score: <span className="text-green-400">{score}</span>
         </p>

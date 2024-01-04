@@ -4,10 +4,13 @@ function useKeyboardControls(
   moveLeft: () => void,
   moveRight: () => void,
   moveDown: () => void,
-  rotate: () => void
+  rotate: () => void,
+  isPaused: boolean
 ) {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (isPaused) return;
+
       switch (event.key) {
         case "ArrowLeft":
           event.preventDefault();
