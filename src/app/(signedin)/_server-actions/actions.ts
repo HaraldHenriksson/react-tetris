@@ -37,6 +37,20 @@ export const saveGame = async (
   });
 };
 
+export const fetchRecentGames = async () => {
+  const recentGames = await prisma.game.findMany({
+    take: 10,
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      user: true,
+    },
+  });
+
+  return recentGames;
+};
+
 export const fetchGameHistory = async () => {
   const user = await getServerUser();
 
@@ -53,18 +67,4 @@ export const fetchGameHistory = async () => {
   });
 
   return games;
-};
-
-export const fetchRecentGames = async () => {
-  const recentGames = await prisma.game.findMany({
-    take: 10,
-    orderBy: {
-      createdAt: "desc",
-    },
-    include: {
-      user: true,
-    },
-  });
-
-  return recentGames;
 };
