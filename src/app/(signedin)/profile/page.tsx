@@ -41,6 +41,7 @@ export default function ProfilePage() {
             className="bg-gray-800 bg-opacity-75 rounded-lg shadow-xl p-4 mb-4 flex justify-between items-center"
           >
             <div>
+              <p className="text-small mb-2 text-blue-500">Game {index + 1}</p>
               <p className="text-2xl mb-2">
                 Score: <span className="text-green-400">{game.score}</span>
               </p>
