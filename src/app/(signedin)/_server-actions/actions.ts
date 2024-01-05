@@ -2,7 +2,6 @@
 
 import { getServerUser } from "@/app/lib/user/server";
 import { PrismaClient } from "@prisma/client";
-import { get } from "http";
 
 const prisma = new PrismaClient();
 
