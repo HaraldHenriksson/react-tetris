@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import {
+  fetchRecentGames,
+  fetchTopBestGames,
+} from "../_server-actions/actions";
 
 interface GameData {
   id: number;
@@ -10,13 +14,25 @@ interface GameData {
   createdAt: Date;
 }
 
-async function fetchTopBestGames() {}
-
-async function fetchRecentGames() {}
-
 export default function Leaderboard() {
   const [topBestGames, setTopBestGames] = useState<GameData[]>([]);
   const [recentGames, setRecentGames] = useState<GameData[]>([]);
+
+  useEffect(() => {
+    const loadLeaderboardData = async () => {
+      try {
+        const topGames = await fetchTopBestGames();
+        setTopBestGames(topGames);
+
+        const recent = await fetchRecentGames();
+        setRecentGames(recent);
+      } catch (error) {
+        console.error("Error loading leaderboard data:", error);
+      }
+    };
+
+    loadLeaderboardData();
+  }, []);
 
   return (
     <div className="bg-customBlue min-h-screen p-8 text-white">
