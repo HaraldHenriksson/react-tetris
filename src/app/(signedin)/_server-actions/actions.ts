@@ -37,20 +37,20 @@ export const saveGame = async (
   });
 };
 
-// export const fetchGameHistory = async () => {
-//   const user = await getServerUser();
+export const fetchGameHistory = async () => {
+  const user = await getServerUser();
 
-//   if (!user) {
-//     throw new Error("User not found");
-//   }
+  if (!user) {
+    throw new Error("User not found");
+  }
 
-//   const games = await prisma.game.findMany({
-//     where: {
-//       user: {
-//         id: user.id,
-//       },
-//     },
-//   });
+  const games = await prisma.game.findMany({
+    where: {
+      user: {
+        id: user.id,
+      },
+    },
+  });
 
-//   return games;
-// };
+  return games;
+};
