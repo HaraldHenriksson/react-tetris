@@ -12,10 +12,10 @@ export const saveGame = async (
   level: number,
   linesCleared: number
 ) => {
-  let user = await prisma.user.findUnique({ where: { id: userId } });
+  const user = await prisma.user.findUnique({ where: { id: userId } });
 
   if (!user) {
-    user = await prisma.user.create({
+    await prisma.user.create({
       data: {
         id: userId,
         email: userEmail,
@@ -23,16 +23,16 @@ export const saveGame = async (
     });
   }
 
-  if (!user) {
-    throw new Error("User creation failed");
-  }
-
   return await prisma.game.create({
     data: {
       score,
       level,
       linesCleared,
-      userId: user.id,
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
     },
   });
 };
