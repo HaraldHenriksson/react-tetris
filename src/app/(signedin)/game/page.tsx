@@ -6,7 +6,7 @@ import GameGrid from "@/components/Gamegrid";
 import Tetrominos from "@/components/Tetromino";
 import useAutoDrop from "@/hooks/useAutoDrop";
 import useKeyboardControls from "@/hooks/useKeyboardControls";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getCurrentTetrominoShape } from "@/utils/tetrisUtils";
 import {
   calculateScoreForLines,
@@ -14,6 +14,8 @@ import {
 } from "@/utils/scoreUtils";
 import PausePlayIcon from "@/components/PausePlayIcon";
 import useTetrominoControls from "@/hooks/useTetrominoControls";
+import { getServerUser, getUserId } from "@/app/lib/user/server";
+import { saveGame } from "../_server-actions/actions";
 
 interface Cell {
   filled: boolean;
@@ -197,6 +199,27 @@ export default function Game() {
   const togglePause = () => {
     setIsPaused(!isPaused);
   };
+
+  useEffect(() => {
+    const saveGameData = async () => {
+      if (isGameOver) {
+        try {
+          const user = await getServerUser();
+          console.log("user", user);
+          if (user && user.email) {
+            await saveGame(user.id, user.email, score, level, linesCleared);
+            console.log("Game saved");
+          } else {
+            console.log("User or user email is undefined, game not saved");
+          }
+        } catch (error) {
+          console.error("Failed to save game data", error);
+        }
+      }
+    };
+
+    saveGameData();
+  }, [isGameOver, score, level, linesCleared]);
 
   return (
     <div className="bg-customBlue min-h-screen flex justify-center items-center">

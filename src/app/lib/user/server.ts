@@ -12,3 +12,8 @@ export async function getServerUser(): Promise<User | null> {
 
   return user;
 }
+
+export async function getUserId() {
+  const user = await getServerUser();
+  return user?.id;
+}
