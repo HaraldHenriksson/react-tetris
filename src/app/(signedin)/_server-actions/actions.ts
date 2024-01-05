@@ -15,7 +15,7 @@ export const saveGame = async (
   const user = await prisma.user.findUnique({ where: { id: userId } });
 
   if (!user) {
-    const user = await getServerUser();
+    // const user = await getServerUser();
     await prisma.user.create({
       data: {
         id: userId,
