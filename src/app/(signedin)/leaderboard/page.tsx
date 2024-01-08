@@ -54,27 +54,26 @@ export default function Leaderboard() {
           {topBestGames.map((game, index) => (
             <div
               key={index}
-              className="bg-gray-800 bg-opacity-75 rounded-lg shadow-xl p-4 mb-4"
+              className="bg-gray-800 bg-opacity-75 rounded-lg shadow-xl p-4 mb-4 flex justify-between items-center"
             >
-              <p>
-                User Email:{" "}
-                <span className="text-yellow-400">{game.user.email}</span>
-              </p>
-              <p>
-                Score: <span className="text-green-400">{game.score}</span>
-              </p>
-              <p>
-                Level: <span className="text-blue-400">{game.level}</span>
-              </p>
-              <p>
-                Lines Cleared:{" "}
-                <span className="text-red-400">{game.linesCleared}</span>
-              </p>
-              <p>
-                Date:{" "}
-                <span className="text-gray-400">
-                  {new Date(game.createdAt).toLocaleString()}
-                </span>
+              <div>
+                <p>
+                  User:{" "}
+                  <span className="text-yellow-400">{game.user.email}</span>
+                </p>
+                <p>
+                  Score: <span className="text-green-400">{game.score}</span>
+                </p>
+                <p>
+                  Level: <span className="text-blue-400">{game.level}</span>
+                </p>
+                <p>
+                  Lines Cleared:{" "}
+                  <span className="text-red-400">{game.linesCleared}</span>
+                </p>
+              </div>
+              <p className="text-sm text-gray-400">
+                {new Date(game.createdAt).toLocaleString()}
               </p>
             </div>
           ))}
@@ -84,27 +83,26 @@ export default function Leaderboard() {
           {recentGames.map((game, index) => (
             <div
               key={index}
-              className="bg-gray-800 bg-opacity-75 rounded-lg shadow-xl p-4 mb-4"
+              className="bg-gray-800 bg-opacity-75 rounded-lg shadow-xl p-4 mb-4 flex justify-between items-center"
             >
-              <p>
-                User Email:{" "}
-                <span className="text-yellow-400">{game.user.email}</span>
-              </p>
-              <p>
-                Score: <span className="text-green-400">{game.score}</span>
-              </p>
-              <p>
-                Level: <span className="text-blue-400">{game.level}</span>
-              </p>
-              <p>
-                Lines Cleared:{" "}
-                <span className="text-red-400">{game.linesCleared}</span>
-              </p>
-              <p>
-                Date:{" "}
-                <span className="text-gray-400">
-                  {new Date(game.createdAt).toLocaleString()}
-                </span>
+              <div>
+                <p>
+                  User:{" "}
+                  <span className="text-yellow-400">{game.user.email}</span>
+                </p>
+                <p>
+                  Score: <span className="text-green-400">{game.score}</span>
+                </p>
+                <p>
+                  Level: <span className="text-blue-400">{game.level}</span>
+                </p>
+                <p>
+                  Lines Cleared:{" "}
+                  <span className="text-red-400">{game.linesCleared}</span>
+                </p>
+              </div>
+              <p className="text-sm text-gray-400">
+                {new Date(game.createdAt).toLocaleString()}
               </p>
             </div>
           ))}
