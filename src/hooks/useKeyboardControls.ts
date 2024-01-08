@@ -5,6 +5,7 @@ function useKeyboardControls(
   moveRight: () => void,
   moveDown: () => void,
   rotate: () => void,
+  dropTetromino: () => void,
   isPaused: boolean
 ) {
   useEffect(() => {
@@ -27,6 +28,10 @@ function useKeyboardControls(
         case "ArrowUp":
           event.preventDefault();
           rotate();
+          break;
+        case " ":
+          event.preventDefault();
+          dropTetromino();
           break;
         default:
           break;

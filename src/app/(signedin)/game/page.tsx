@@ -100,20 +100,28 @@ export default function Game() {
     clearLines();
   };
 
-  const { moveLeft, moveRight, moveDown, rotate } = useTetrominoControls({
-    tetrominoType,
-    position,
-    setPosition,
-    rotation,
-    setRotation,
-    grid,
-    gridWidth,
-    gridHeight,
-    settleTetromino,
-    spawnTetromino,
-  });
+  const { moveLeft, moveRight, moveDown, rotate, dropTetromino } =
+    useTetrominoControls({
+      tetrominoType,
+      position,
+      setPosition,
+      rotation,
+      setRotation,
+      grid,
+      gridWidth,
+      gridHeight,
+      settleTetromino,
+      spawnTetromino,
+    });
 
-  useKeyboardControls(moveLeft, moveRight, moveDown, rotate, isPaused);
+  useKeyboardControls(
+    moveLeft,
+    moveRight,
+    moveDown,
+    rotate,
+    dropTetromino,
+    isPaused
+  );
 
   useAutoDrop(moveDown, score, isPaused);
 

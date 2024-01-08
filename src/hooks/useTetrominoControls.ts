@@ -123,7 +123,32 @@ function useTetrominoControls({
     });
   }, [rotation, grid, tetrominoType, position]);
 
-  return { moveLeft, moveRight, moveDown, rotate };
+  const dropTetromino = useCallback(() => {
+    let newPosition = { ...position };
+    let currentShape = getCurrentTetrominoShape(tetrominoType, rotation);
+    while (
+      !checkCollision({
+        newPosition: { ...newPosition, y: newPosition.y + 1 },
+        tetrominoShape: currentShape as number[][],
+        grid,
+        gridWidth,
+        gridHeight,
+      })
+    ) {
+      newPosition.y++;
+    }
+    settleTetromino(currentShape as number[][], newPosition);
+    spawnTetromino();
+  }, [
+    position,
+    rotation,
+    grid,
+    tetrominoType,
+    settleTetromino,
+    spawnTetromino,
+  ]);
+
+  return { moveLeft, moveRight, moveDown, rotate, dropTetromino };
 }
 
 export default useTetrominoControls;
