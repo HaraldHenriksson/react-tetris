@@ -1,10 +1,10 @@
-"use server";
-
 import Messages from "@/components/Messages";
 import {
   fetchRecentGames,
   fetchTopBestGames,
 } from "../_server-actions/actions";
+
+export const dynamic = "force-dynamic";
 
 interface UserData {
   id: string;
@@ -22,14 +22,30 @@ interface GameData {
 }
 
 export default async function Leaderboard() {
-  const topBestGames = await fetchTopBestGames();
-  const recentGames = await fetchRecentGames();
+  let topBestGames: GameData[];
+  let recentGames: GameData[];
+  let errorMessage: string = "";
+
+  try {
+    topBestGames = await fetchTopBestGames();
+    recentGames = await fetchRecentGames();
+  } catch (error) {
+    console.error("Error loading leaderboard data:", error);
+    topBestGames = [];
+    recentGames = [];
+    errorMessage = "Error fetching game data. Please try again later.";
+  }
 
   return (
     <div className="bg-customBlue min-h-screen p-8 text-white">
       <h1 className="text-4xl font-bold text-center mb-10 text-amber-600">
         Leaderboard
       </h1>
+
+      {errorMessage && (
+        <p className="text-red-500 text-center">{errorMessage}</p>
+      )}
+
       <div className="max-w-4xl mx-auto">
         <section>
           <h2 className="text-3xl mb-4 text-blue-500">Top Best Games</h2>
