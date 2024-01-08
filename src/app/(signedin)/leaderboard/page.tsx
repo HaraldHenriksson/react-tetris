@@ -1,47 +1,14 @@
-"use client";
+"use server";
 
-import { useEffect, useState } from "react";
 import {
   fetchRecentGames,
   fetchTopBestGames,
 } from "../_server-actions/actions";
 
-interface UserData {
-  id: string;
-  email: string;
-}
+export default async function Leaderboard() {
+  const topBestGames = await fetchTopBestGames();
 
-interface GameData {
-  id: number;
-  score: number;
-  level: number;
-  linesCleared: number;
-  createdAt: Date;
-  userId: string;
-  user: UserData;
-}
-
-export default function Leaderboard() {
-  const [topBestGames, setTopBestGames] = useState<GameData[]>([]);
-  const [recentGames, setRecentGames] = useState<GameData[]>([]);
-
-  useEffect(() => {
-    const loadLeaderboardData = async () => {
-      try {
-        const topGames = await fetchTopBestGames();
-        console.log("topGames", topGames);
-        setTopBestGames(topGames);
-
-        const recent = await fetchRecentGames();
-        console.log("recent", recent);
-        setRecentGames(recent);
-      } catch (error) {
-        console.error("Error loading leaderboard data:", error);
-      }
-    };
-
-    loadLeaderboardData();
-  }, []);
+  const recentGames = await fetchRecentGames();
 
   return (
     <div className="bg-customBlue min-h-screen p-8 text-white">
