@@ -6,8 +6,25 @@ import {
   fetchTopBestGames,
 } from "../_server-actions/actions";
 
+interface UserData {
+  id: string;
+  email: string;
+}
+
+interface GameData {
+  id: number;
+  score: number;
+  level: number;
+  linesCleared: number;
+  createdAt: Date;
+  userId: string;
+  user: UserData;
+}
+
 export default async function Leaderboard() {
-  let topBestGames: any[], recentGames: any[];
+  let topBestGames: GameData[], recentGames: GameData[];
+
+  let error: string = "";
 
   try {
     topBestGames = await fetchTopBestGames();
@@ -16,6 +33,7 @@ export default async function Leaderboard() {
     console.error("Error loading leaderboard data:", error);
     topBestGames = [];
     recentGames = [];
+    error = "Error fetching game data. Please try again later.";
   }
 
   return (
@@ -23,6 +41,9 @@ export default async function Leaderboard() {
       <h1 className="text-4xl font-bold text-center mb-10 text-amber-600">
         Leaderboard
       </h1>
+
+      {error && <p className="text-red-500 text-center">{error}</p>}
+
       <div className="max-w-4xl mx-auto">
         <section>
           <h2 className="text-3xl mb-4 text-blue-500">Top Best Games</h2>
