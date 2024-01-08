@@ -14,12 +14,13 @@ import {
 } from "@/utils/scoreUtils";
 import PausePlayIcon from "@/components/PausePlayIcon";
 import useTetrominoControls from "@/hooks/useTetrominoControls";
-import { getServerUser, getUserId } from "@/app/lib/user/server";
+import { getServerUser } from "@/app/lib/user/server";
 import { saveGame } from "../_server-actions/actions";
 
+type TetrominoType = "I" | "O" | "T" | "S" | "Z" | "J" | "L";
 interface Cell {
   filled: boolean;
-  type: "I" | "O" | "T" | "S" | "Z" | "J" | "L" | null;
+  type: TetrominoType | null;
   color?: string;
 }
 
@@ -52,18 +53,11 @@ export default function Game() {
   );
 
   const spawnTetromino = () => {
-    const types = ["I", "O", "T", "S", "Z", "J", "L"];
+    const types: TetrominoType[] = ["I", "O", "T", "S", "Z", "J", "L"];
     const newTypes = types.filter((type) => type !== tetrominoType);
 
     setTetrominoType(
-      newTypes[Math.floor(Math.random() * newTypes.length)] as
-        | "I"
-        | "O"
-        | "T"
-        | "S"
-        | "Z"
-        | "J"
-        | "L"
+      newTypes[Math.floor(Math.random() * newTypes.length)] as TetrominoType
     );
 
     if (checkGameOver()) {
