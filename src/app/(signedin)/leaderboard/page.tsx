@@ -22,7 +22,9 @@ interface GameData {
 }
 
 export default async function Leaderboard() {
-  let topBestGames: GameData[], recentGames: GameData[];
+  let topBestGames: GameData[];
+
+  let recentGames: GameData[];
 
   let error: string = "";
 
