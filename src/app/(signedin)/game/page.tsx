@@ -53,9 +53,10 @@ export default function Game() {
 
   const spawnTetromino = () => {
     const types = ["I", "O", "T", "S", "Z", "J", "L"];
+    const newTypes = types.filter((type) => type !== tetrominoType);
 
     setTetrominoType(
-      types[Math.floor(Math.random() * types.length)] as
+      newTypes[Math.floor(Math.random() * newTypes.length)] as
         | "I"
         | "O"
         | "T"
