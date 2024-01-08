@@ -128,35 +128,41 @@ export default function Game() {
   const clearLines = () => {
     setGrid((prevGrid) => {
       // filled rows
-      const rowsWithoutFilled = prevGrid.filter(
-        (row) => !row.every((cell) => cell.filled)
+      const filledRows = prevGrid.filter((row) =>
+        row.every((cell) => cell.filled)
       );
 
       // number of filled rows
-      const filledrowsCount = gridHeight - rowsWithoutFilled.length;
-
+      const filledRowsCount = filledRows.length;
       // if filled rows
-      if (filledrowsCount > 0) {
+      if (filledRowsCount > 0) {
         // new empty rows
-        const newRows = Array(filledrowsCount)
-          .fill(0)
-          .map(() => Array(gridWidth).fill({ filled: false, color: "" }));
+        const newRows = Array.from({ length: filledRowsCount }, () =>
+          Array(gridWidth).fill({ filled: false, type: null })
+        );
+
+        // rows that are not filled
+        const remainingRows = prevGrid.filter(
+          (row) => !row.every((cell) => cell.filled)
+        );
 
         // Calculate score for cleared lines and add it to the total score
-        const scoreForLines = calculateScoreForLines(level, filledrowsCount);
+        const scoreForLines = calculateScoreForLines(level, filledRowsCount);
         setScore((prevScore) => calculateTotalScore(prevScore, scoreForLines));
 
-        setLinesCleared((prevLines) => {
-          const newTotalLines = prevLines + filledrowsCount;
-          // Level up for every 10 lines
-          if (Math.floor(newTotalLines / 10) > Math.floor(prevLines / 10)) {
-            setLevel((prevLevel) => prevLevel + 1);
-          }
-          return newTotalLines;
-        });
+        const newLinesCleared = linesCleared + filledRowsCount;
+
+        setLevel(
+          (prevLevel) =>
+            prevLevel +
+            Math.floor(newLinesCleared / 10) -
+            Math.floor(linesCleared / 10)
+        );
+
+        setLinesCleared(newLinesCleared);
 
         // new grid
-        return [...newRows, ...rowsWithoutFilled];
+        return [...newRows, ...remainingRows];
       }
 
       // If no filled rows, return the original grid
