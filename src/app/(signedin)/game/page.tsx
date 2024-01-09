@@ -16,6 +16,7 @@ import PausePlayIcon from "@/components/PausePlayIcon";
 import useTetrominoControls from "@/hooks/useTetrominoControls";
 import { getServerUser } from "@/app/lib/user/server";
 import { saveGame } from "../_server-actions/actions";
+import NextTetromino from "@/components/NextTetromino";
 
 type TetrominoType = "I" | "O" | "T" | "S" | "Z" | "J" | "L";
 interface Cell {
@@ -269,12 +270,14 @@ export default function Game() {
           rotation={rotation}
           isGhost={true}
         />
+
         {isGameOver && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10">
             <div className="text-4xl text-white">Game Over</div>
           </div>
         )}
       </div>
+      <NextTetromino nextTetrominoType={nextTetromino} />
     </div>
   );
 }
