@@ -10,16 +10,18 @@ export default function Cell({ filled, color }: CellProps) {
     ? {
         width: "32px",
         height: "32px",
-        backgroundColor: color,
-        border: "2px solid rgba(255, 255, 255, 0.8)",
+        backgroundImage: `linear-gradient(145deg, ${color}, #000)`,
+        border: "1px solid rgba(255, 255, 255, 0.6)",
         borderRadius: "3px",
-        boxShadow: "0 0 5px rgba(0, 0, 0, 0.2)",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.15)",
       }
     : {
         width: "32px",
         height: "32px",
         backgroundColor: "transparent",
+        border: "1px solid rgba(128, 128, 128, 0.2)",
+        borderRadius: "3px",
       };
 
-  return <div className="w-8 h-8 border border-gray-400" style={cellStyle} />;
+  return <div style={cellStyle} />;
 }
