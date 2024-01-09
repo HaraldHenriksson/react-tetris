@@ -22,7 +22,7 @@ export default function GamePieces({
   const currentTetromino = Tetrominos[tetromino];
   const currentShape = getCurrentTetrominoShape(tetromino, rotation);
   const color = currentTetromino.color;
-  const opacity = isGhost ? 0.5 : 1;
+  const opacity = isGhost ? 0.2 : 1;
 
   return (
     <div
