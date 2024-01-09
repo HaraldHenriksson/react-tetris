@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     password: password,
   });
 
-  console.log("verifyError:", verifyError);
+  console.error("verifyError:", verifyError);
 
   if (verifyError) {
     return NextResponse.redirect(

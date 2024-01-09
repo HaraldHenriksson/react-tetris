@@ -7,7 +7,5 @@ export const dynamic = "force-dynamic";
 export default async function Index() {
   const user = await getServerUser();
 
-  console.log("user", user?.email);
-
   return <div>{user && user?.id ? <Home /> : <SignIn />}</div>;
 }

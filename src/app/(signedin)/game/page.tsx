@@ -225,12 +225,10 @@ export default function Game() {
       if (isGameOver) {
         try {
           const user = await getServerUser();
-          console.log("user", user);
           if (user && user.email) {
             await saveGame(user.id, user.email, score, level, linesCleared);
-            console.log("Game saved");
           } else {
-            console.log("User or user email is undefined, game not saved");
+            console.error("User or user email is undefined, game not saved");
           }
         } catch (error) {
           console.error("Failed to save game data", error);
