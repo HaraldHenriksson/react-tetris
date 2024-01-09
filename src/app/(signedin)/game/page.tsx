@@ -25,9 +25,9 @@ interface Cell {
 }
 
 export default function Game() {
-  const [tetrominoType, setTetrominoType] = useState<
-    "I" | "O" | "T" | "S" | "Z" | "J" | "L"
-  >("I");
+  const [currentTetromino, setCurrentTetromino] = useState<TetrominoType>("I");
+  const [nextTetromino, setNextTetromino] = useState<TetrominoType>("I");
+
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState<number>(0);
 
@@ -52,11 +52,21 @@ export default function Game() {
     createInitialGrid(gridWidth, gridHeight)
   );
 
+  useEffect(() => {
+    // Generate the first two Tetrominos when the game starts
+    spawnTetromino();
+    spawnTetromino();
+  }, []);
+
   const spawnTetromino = () => {
     const types: TetrominoType[] = ["I", "O", "T", "S", "Z", "J", "L"];
-    const newTypes = types.filter((type) => type !== tetrominoType);
 
-    setTetrominoType(
+    setCurrentTetromino(nextTetromino);
+
+    // Generate a new next Tetromino
+    const newTypes = types.filter((type) => type !== nextTetromino);
+
+    setNextTetromino(
       newTypes[Math.floor(Math.random() * newTypes.length)] as TetrominoType
     );
 
@@ -72,8 +82,8 @@ export default function Game() {
     tetrominoShape: number[][],
     position: { x: number; y: number }
   ) => {
-    const color = Tetrominos[tetrominoType].color;
-    const currentShape = getCurrentTetrominoShape(tetrominoType, rotation);
+    const color = Tetrominos[currentTetromino].color;
+    const currentShape = getCurrentTetrominoShape(currentTetromino, rotation);
 
     // update grid
     setGrid((prevGrid) => {
@@ -86,7 +96,7 @@ export default function Game() {
           if (cell !== 0) {
             newGrid[y + position.y][x + position.x] = {
               filled: true,
-              type: tetrominoType,
+              type: currentTetromino,
               color: color,
             };
           }
@@ -102,7 +112,7 @@ export default function Game() {
 
   const { moveLeft, moveRight, moveDown, rotate, dropTetromino } =
     useTetrominoControls({
-      tetrominoType,
+      currentTetromino,
       position,
       setPosition,
       rotation,
@@ -172,7 +182,7 @@ export default function Game() {
 
   const checkGameOver = () => {
     const initialPosition = { x: 4, y: 0 }; // initial position
-    const currentShape = getCurrentTetrominoShape(tetrominoType, rotation);
+    const currentShape = getCurrentTetrominoShape(currentTetromino, rotation);
 
     // check collision at the initial position
     return checkCollision({
@@ -185,7 +195,7 @@ export default function Game() {
   };
 
   const calculateGhostPosition = () => {
-    const currentShape = getCurrentTetrominoShape(tetrominoType, rotation);
+    const currentShape = getCurrentTetrominoShape(currentTetromino, rotation);
     let ghostPosition = { ...position };
 
     while (
@@ -247,14 +257,14 @@ export default function Game() {
       <div className="relative w-auto">
         <GameGrid grid={grid} width={10} height={20} />
         <GamePieces
-          tetromino={tetrominoType}
+          tetromino={currentTetromino}
           position={position}
           rotation={rotation}
           isGhost={false}
         />
 
         <GamePieces
-          tetromino={tetrominoType}
+          tetromino={currentTetromino}
           position={ghostPosition}
           rotation={rotation}
           isGhost={true}
