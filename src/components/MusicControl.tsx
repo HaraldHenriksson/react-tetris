@@ -29,7 +29,20 @@ const MusicControl = () => {
   };
 
   return (
-    <button onClick={togglePlay} className="music-control">
+    <button
+      onClick={togglePlay}
+      className="music-control"
+      style={{
+        position: "fixed",
+        right: "20px",
+        bottom: "20px",
+        zIndex: 1000,
+        opacity: 0.7,
+        backgroundColor: "transparent",
+        border: "none",
+        cursor: "pointer",
+      }}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -37,6 +50,7 @@ const MusicControl = () => {
         strokeWidth={1.5}
         stroke={isPlaying ? "currentColor" : "gray"}
         className="w-6 h-6"
+        style={{ transform: "scale(2)" }} // larger
       >
         <path
           strokeLinecap="round"
