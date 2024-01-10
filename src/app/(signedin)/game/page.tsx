@@ -18,6 +18,7 @@ import { getServerUser } from "@/app/lib/user/server";
 import { saveGame } from "../_server-actions/actions";
 import NextTetromino from "@/components/NextTetromino";
 import MusicControl from "@/components/MusicControl";
+import useGhostPosition from "@/hooks/useGhostPosition";
 
 type TetrominoType = "I" | "O" | "T" | "S" | "Z" | "J" | "L";
 interface Cell {
@@ -198,26 +199,14 @@ export default function Game() {
     });
   };
 
-  const calculateGhostPosition = () => {
-    const currentShape = getCurrentTetrominoShape(currentTetromino, rotation);
-    let ghostPosition = { ...position };
-
-    while (
-      !checkCollision({
-        newPosition: { x: ghostPosition.x, y: ghostPosition.y + 1 },
-        tetrominoShape: currentShape as number[][],
-        grid,
-        gridWidth,
-        gridHeight,
-      })
-    ) {
-      ghostPosition.y++;
-    }
-
-    return ghostPosition;
-  };
-
-  const ghostPosition = calculateGhostPosition();
+  const ghostPosition = useGhostPosition(
+    currentTetromino,
+    rotation,
+    position,
+    grid,
+    gridWidth,
+    gridHeight
+  );
 
   const togglePause = () => {
     setIsPaused(!isPaused);
