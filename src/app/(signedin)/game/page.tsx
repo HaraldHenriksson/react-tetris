@@ -185,7 +185,7 @@ export default function Game() {
     const initialPosition = { x: 4, y: 0 }; // initial position
     const currentShape = getCurrentTetrominoShape(currentTetromino, rotation);
 
-    // check collision at the initial position
+    // Check collision at the initial position
     return checkCollision({
       newPosition: initialPosition,
       tetrominoShape: currentShape as number[][],
