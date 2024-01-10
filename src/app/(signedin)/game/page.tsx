@@ -19,6 +19,7 @@ import { saveGame } from "../_server-actions/actions";
 import NextTetromino from "@/components/NextTetromino";
 import MusicControl from "@/components/MusicControl";
 import useGhostPosition from "@/hooks/useGhostPosition";
+import useCheckGameOver from "@/hooks/useCheckGameOver";
 
 type TetrominoType = "I" | "O" | "T" | "S" | "Z" | "J" | "L";
 interface Cell {
@@ -185,19 +186,13 @@ export default function Game() {
     });
   };
 
-  const checkGameOver = () => {
-    const initialPosition = { x: 4, y: 0 }; // initial position
-    const currentShape = getCurrentTetrominoShape(currentTetromino, rotation);
-
-    // Check collision at the initial position
-    return checkCollision({
-      newPosition: initialPosition,
-      tetrominoShape: currentShape as number[][],
-      grid,
-      gridWidth,
-      gridHeight,
-    });
-  };
+  const checkGameOver = useCheckGameOver(
+    currentTetromino,
+    rotation,
+    grid,
+    gridWidth,
+    gridHeight
+  );
 
   const ghostPosition = useGhostPosition(
     currentTetromino,
