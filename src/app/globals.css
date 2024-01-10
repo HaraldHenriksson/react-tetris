@@ -30,6 +30,13 @@ body {
 }
 
 @font-face {
+  font-family: 'Digital-7';
+  src: url('/fonts/digital-7%20(italic).ttf') format('truetype');
+  font-style: italic;
+  font-weight: normal;
+}
+
+@font-face {
   font-family: 'Arcade';
   src: url('/fonts/Arcade.ttf') format('truetype');
   font-weight: normal;
