@@ -18,6 +18,7 @@ const config: Config = {
       },
       fontFamily: {
         digital: ['"Digital-7"', "system-ui"],
+        arcade: ['"Arcade"', "sans-serif"],
       },
     },
   },

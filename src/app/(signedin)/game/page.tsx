@@ -260,7 +260,7 @@ export default function Game() {
 
         {isGameOver && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10">
-            <div className="text-4xl text-white">Game Over</div>
+            <div className="text-4xl text-white font-arcade">Game Over</div>
           </div>
         )}
       </div>
