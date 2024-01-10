@@ -20,11 +20,6 @@ const MusicControl: React.FC<MusicControlProps> = ({
     newAudio.loop = true;
     setAudio(newAudio);
 
-    // Play music when on mount
-    if (!isMusicPaused) {
-      newAudio.play();
-    }
-
     // Cleanup function to pause music
     return () => {
       newAudio.pause();
