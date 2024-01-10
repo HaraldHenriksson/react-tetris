@@ -205,7 +205,6 @@ export default function Game() {
 
   const togglePause = () => {
     setIsPaused(!isPaused);
-    setIsMusicPaused(!isMusicPaused);
   };
 
   useEffect(() => {
