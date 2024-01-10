@@ -2,30 +2,48 @@
 
 import React, { useState, useEffect } from "react";
 
-const MusicControl = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+interface MusicControlProps {
+  isMusicPaused: boolean;
+  setIsMusicPaused: (isMusicPaused: boolean) => void;
+}
+
+const MusicControl: React.FC<MusicControlProps> = ({
+  isMusicPaused,
+  setIsMusicPaused,
+}) => {
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // init audio
     const newAudio = new Audio(
       "https://ia801407.us.archive.org/1/items/tetris-theme-song/tetris%20theme%20song.mp3"
     );
     newAudio.loop = true;
     setAudio(newAudio);
+
+    // Play music when on mount
+    if (!isMusicPaused) {
+      newAudio.play();
+    }
+
+    // Cleanup function to pause music
+    return () => {
+      newAudio.pause();
+    };
   }, []);
 
-  const togglePlay = () => {
+  useEffect(() => {
+    // Toggle play/pause based on isPaused state
     if (audio) {
-      if (isPlaying) {
+      if (isMusicPaused) {
         audio.pause();
       } else {
-        audio
-          .play()
-          .catch((error) => console.error("Audio playback failed:", error));
+        audio.play();
       }
-      setIsPlaying(!isPlaying);
     }
+  }, [isMusicPaused, audio]);
+
+  const togglePlay = () => {
+    setIsMusicPaused(!isMusicPaused);
   };
 
   return (
@@ -48,7 +66,7 @@ const MusicControl = () => {
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
-        stroke={isPlaying ? "currentColor" : "gray"}
+        stroke={isMusicPaused ? "currentColor" : "gray"}
         className="w-6 h-6"
         style={{ transform: "scale(2)" }} // larger
       >

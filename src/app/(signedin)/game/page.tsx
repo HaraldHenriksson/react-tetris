@@ -17,6 +17,7 @@ import useTetrominoControls from "@/hooks/useTetrominoControls";
 import { getServerUser } from "@/app/lib/user/server";
 import { saveGame } from "../_server-actions/actions";
 import NextTetromino from "@/components/NextTetromino";
+import MusicControl from "@/components/MusicControl";
 
 type TetrominoType = "I" | "O" | "T" | "S" | "Z" | "J" | "L";
 interface Cell {
@@ -39,6 +40,8 @@ export default function Game() {
   const [score, setScore] = useState(0);
   const [level, setLevel] = useState(1);
   const [linesCleared, setLinesCleared] = useState(0);
+
+  const [isMusicPaused, setIsMusicPaused] = useState(false);
 
   const createInitialGrid = (width: number, height: number): Cell[][] => {
     return Array.from({ length: height }, () =>
@@ -218,11 +221,13 @@ export default function Game() {
 
   const togglePause = () => {
     setIsPaused(!isPaused);
+    setIsMusicPaused(!isMusicPaused);
   };
 
   useEffect(() => {
     const saveGameData = async () => {
       if (isGameOver) {
+        setIsMusicPaused(true);
         try {
           const user = await getServerUser();
           if (user && user.email) {
@@ -276,6 +281,10 @@ export default function Game() {
         )}
       </div>
       <NextTetromino nextTetrominoType={nextTetromino} />
+      <MusicControl
+        isMusicPaused={isMusicPaused}
+        setIsMusicPaused={setIsMusicPaused}
+      />
     </div>
   );
 }
