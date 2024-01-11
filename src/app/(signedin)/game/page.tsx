@@ -29,7 +29,11 @@ interface Cell {
   color?: string;
 }
 
-export default function Game() {
+interface GameProps {
+  controls: "wasd" | "arrows";
+}
+
+export default function Game({ controls }: GameProps) {
   const [currentTetromino, setCurrentTetromino] = useState<TetrominoType>("I");
   const [nextTetromino, setNextTetromino] = useState<TetrominoType>("I");
 
@@ -139,7 +143,8 @@ export default function Game() {
     moveDown,
     rotate,
     dropTetromino,
-    isPaused
+    isPaused,
+    controls
   );
 
   useAutoDrop(moveDown, score, isPaused);

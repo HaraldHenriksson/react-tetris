@@ -6,30 +6,48 @@ function useKeyboardControls(
   moveDown: () => void,
   rotate: () => void,
   dropTetromino: () => void,
-  isPaused: boolean
+  isPaused: boolean,
+  controls: "wasd" | "arrows"
 ) {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (isPaused) return;
 
+      const keyBindings =
+        controls === "wasd"
+          ? {
+              left: "a",
+              right: "d",
+              down: "s",
+              rotate: "w",
+              drop: "q",
+            }
+          : {
+              left: "ArrowLeft",
+              right: "ArrowRight",
+              down: "ArrowDown",
+              rotate: "ArrowUp",
+              drop: " ",
+            };
+
       switch (event.key) {
-        case "ArrowLeft":
+        case keyBindings.left:
           event.preventDefault();
           moveLeft();
           break;
-        case "ArrowRight":
+        case keyBindings.right:
           event.preventDefault();
           moveRight();
           break;
-        case "ArrowDown":
+        case keyBindings.down:
           event.preventDefault();
           moveDown();
           break;
-        case "ArrowUp":
+        case keyBindings.rotate:
           event.preventDefault();
           rotate();
           break;
-        case " ":
+        case keyBindings.drop:
           event.preventDefault();
           dropTetromino();
           break;
