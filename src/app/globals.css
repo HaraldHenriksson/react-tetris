@@ -42,3 +42,10 @@ body {
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'BlackOpsOne';
+  src: url('/fonts/BlackOpsOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
