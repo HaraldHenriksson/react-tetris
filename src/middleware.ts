@@ -3,7 +3,13 @@ import { NextResponse } from "next/server";
 
 import type { NextRequest } from "next/server";
 
-const protectedRoutes = ["/game", "/home", "/leaderboard", "/profile"];
+const protectedRoutes = [
+  "/game",
+  "/home",
+  "/leaderboard",
+  "/profile",
+  "/doublegame",
+];
 
 export async function middleware(req: NextRequest) {
   const requestUrl = new URL(req.url);
