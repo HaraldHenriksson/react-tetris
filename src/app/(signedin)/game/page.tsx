@@ -214,6 +214,7 @@ export default function Game() {
     const saveGameData = async () => {
       if (isGameOver) {
         setIsMusicPaused(true);
+        togglePause();
         try {
           const user = await getServerUser();
           if (user && user.email) {
