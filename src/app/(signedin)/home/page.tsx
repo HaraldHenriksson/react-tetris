@@ -13,8 +13,14 @@ export default async function Home() {
       </header>
 
       <Link legacyBehavior href="/game">
-        <a className="inline-block mt-40 px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">
-          Start Game
+        <a className="inline-block mt-40 px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 mb-4">
+          Start Classic Tetris
+        </a>
+      </Link>
+
+      <Link legacyBehavior href="/doublegame">
+        <a className="inline-block px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">
+          Start Double Player Game
         </a>
       </Link>
 
