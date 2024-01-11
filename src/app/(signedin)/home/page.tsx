@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default async function Home() {
   return (
-    <main className="box-content flex flex-col items-center h-screen bg-customBlue p-6">
+    <main className="flex flex-col flex-grow items-center bg-customBlue p-6">
       <header className="text-center">
         <h1 className="text-7xl mt-32 mb-6 font-blackOpsOne text-blue-500">
           React Tetris
