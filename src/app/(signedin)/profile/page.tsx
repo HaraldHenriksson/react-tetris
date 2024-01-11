@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { fetchGameHistory } from "../_server-actions/actions";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 interface GameHistory {
   id: number;
@@ -106,7 +107,7 @@ export default function ProfilePage() {
             );
           }
         })}
-        {loading && <p>Loading game history...</p>}
+        {loading && <LoadingSpinner />}
       </div>
     </div>
   );
