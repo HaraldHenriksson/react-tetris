@@ -31,9 +31,10 @@ interface Cell {
 
 interface GameProps {
   controls: "wasd" | "arrows";
+  showMusicControl?: boolean;
 }
 
-export default function Game({ controls }: GameProps) {
+export default function Game({ controls, showMusicControl = true }: GameProps) {
   const [currentTetromino, setCurrentTetromino] = useState<TetrominoType>("I");
   const [nextTetromino, setNextTetromino] = useState<TetrominoType>("I");
 
@@ -300,10 +301,12 @@ export default function Game({ controls }: GameProps) {
         )}
       </div>
       <NextTetromino nextTetrominoType={nextTetromino} />
-      <MusicControl
-        isMusicPaused={isMusicPaused}
-        setIsMusicPaused={setIsMusicPaused}
-      />
+      {showMusicControl && (
+        <MusicControl
+          isMusicPaused={isMusicPaused}
+          setIsMusicPaused={setIsMusicPaused}
+        />
+      )}
     </div>
   );
 }
