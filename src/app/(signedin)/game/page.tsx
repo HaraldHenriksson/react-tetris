@@ -20,6 +20,7 @@ import NextTetromino from "@/components/NextTetromino";
 import MusicControl from "@/components/MusicControl";
 import useGhostPosition from "@/hooks/useGhostPosition";
 import useCheckGameOver from "@/hooks/useCheckGameOver";
+import { useRouter } from "next/navigation";
 
 type TetrominoType = "I" | "O" | "T" | "S" | "Z" | "J" | "L";
 interface Cell {
@@ -44,6 +45,8 @@ export default function Game() {
   const [linesCleared, setLinesCleared] = useState(0);
 
   const [isMusicPaused, setIsMusicPaused] = useState(false);
+
+  const router = useRouter();
 
   const createInitialGrid = (width: number, height: number): Cell[][] => {
     return Array.from({ length: height }, () =>
@@ -227,6 +230,22 @@ export default function Game() {
     saveGameData();
   }, [isGameOver, score, level, linesCleared]);
 
+  const handleReplay = () => {
+    // Reset the game state
+    setIsGameOver(false);
+    setScore(0);
+    setLevel(1);
+    setLinesCleared(0);
+    setCurrentTetromino("I");
+    setNextTetromino("I");
+    setPosition({ x: 0, y: 0 });
+    setRotation(0);
+    setIsPaused(false);
+    setGrid(createInitialGrid(gridWidth, gridHeight));
+
+    router.refresh();
+  };
+
   return (
     <div className="bg-customBlue min-h-screen flex justify-center items-center ">
       <div className="text-white p-4 bg-gray-800 bg-opacity-75 rounded-lg shadow-xl">
@@ -259,8 +278,18 @@ export default function Game() {
         />
 
         {isGameOver && (
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10">
-            <div className="text-4xl text-white font-arcade">Game Over</div>
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center z-10">
+            <div className="text-4xl text-white font-arcade mb-4">
+              Game Over
+            </div>
+            <button
+              className=" text-white font-bold py-2 px-4 rounded m-2 flex items-center"
+              onClick={handleReplay}
+            >
+              <div className="transition-transform duration-200 hover:scale-150">
+                <i className="fa fa-repeat"></i>
+              </div>
+            </button>
           </div>
         )}
       </div>
