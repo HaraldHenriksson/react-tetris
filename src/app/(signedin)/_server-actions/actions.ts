@@ -37,7 +37,7 @@ export const saveGame = async (
   });
 };
 
-export const fetchGameHistory = async () => {
+export const fetchGameHistory = async (page = 1) => {
   const user = await getServerUser();
 
   if (!user) {
@@ -49,6 +49,11 @@ export const fetchGameHistory = async () => {
       user: {
         id: user.id,
       },
+    },
+    take: 10,
+    skip: (page - 1) * 20,
+    orderBy: {
+      createdAt: "desc",
     },
   });
 

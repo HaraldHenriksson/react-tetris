@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { fetchGameHistory } from "../_server-actions/actions";
 
 interface GameHistory {
@@ -14,20 +14,31 @@ interface GameHistory {
 
 export default function ProfilePage() {
   const [games, setGames] = useState<GameHistory[]>([]);
+  const [page, setPage] = useState(1);
+  const observer = useRef<IntersectionObserver>();
+
+  const lastGameElementRef = useCallback((node: HTMLDivElement | null) => {
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        setPage((prevPage) => prevPage + 1);
+      }
+    });
+    if (node) observer.current.observe(node);
+  }, []);
 
   useEffect(() => {
     const loadGameHistory = async () => {
       try {
-        const gameHistory = await fetchGameHistory();
-        console.log("gameHistory:", gameHistory);
-        setGames(gameHistory);
+        const gameHistory = await fetchGameHistory(page);
+        setGames((prevGames) => [...prevGames, ...gameHistory]);
       } catch (error) {
         console.error("Error fetching game history:", error);
       }
     };
 
     loadGameHistory();
-  }, []);
+  }, [page]);
 
   return (
     <div className="bg-customBlue min-h-screen p-8 text-white">
@@ -35,29 +46,62 @@ export default function ProfilePage() {
         Game History
       </h1>
       <div className="max-w-4xl mx-auto">
-        {games.map((game, index) => (
-          <div
-            key={index}
-            className="bg-gray-800 bg-opacity-75 rounded-lg shadow-xl p-4 mb-4 flex justify-between items-center"
-          >
-            <div>
-              <p className="text-small mb-2 text-blue-500">Game {index + 1}</p>
-              <p className="text-2xl mb-2">
-                Score: <span className="text-green-400">{game.score}</span>
-              </p>
-              <p className="text-2xl mb-2">
-                Level: <span className="text-blue-400">{game.level}</span>
-              </p>
-              <p className="text-2xl">
-                Lines Cleared:{" "}
-                <span className="text-red-400">{game.linesCleared}</span>
-              </p>
-            </div>
-            <p className="text-sm text-gray-400">
-              {new Date(game.createdAt).toLocaleString()}
-            </p>
-          </div>
-        ))}
+        {games.map((game, index) => {
+          if (games.length === index + 1) {
+            return (
+              <div
+                ref={lastGameElementRef}
+                key={index}
+                className="bg-gray-800 bg-opacity-75 rounded-lg shadow-xl p-4 mb-4 flex justify-between items-center"
+              >
+                <div>
+                  <p className="text-small mb-2 text-blue-500">
+                    Game {index + 1}
+                  </p>
+                  <p className="text-2xl mb-2">
+                    Score: <span className="text-green-400">{game.score}</span>
+                  </p>
+                  <p className="text-2xl mb-2">
+                    Level: <span className="text-blue-400">{game.level}</span>
+                  </p>
+                  <p className="text-2xl">
+                    Lines Cleared:{" "}
+                    <span className="text-red-400">{game.linesCleared}</span>
+                  </p>
+                </div>
+                <p className="text-sm text-gray-400">
+                  {new Date(game.createdAt).toLocaleString()}
+                </p>
+              </div>
+            );
+          } else {
+            return (
+              <div
+                key={index}
+                className="bg-gray-800 bg-opacity-75 rounded-lg shadow-xl p-4 mb-4 flex justify-between items-center"
+              >
+                <div>
+                  <p className="text-small mb-2 text-blue-500">
+                    Game {index + 1}
+                  </p>
+                  <p className="text-2xl mb-2">
+                    Score: <span className="text-green-400">{game.score}</span>
+                  </p>
+                  <p className="text-2xl mb-2">
+                    Level: <span className="text-blue-400">{game.level}</span>
+                  </p>
+                  <p className="text-2xl">
+                    Lines Cleared:{" "}
+                    <span className="text-red-400">{game.linesCleared}</span>
+                  </p>
+                </div>
+                <p className="text-sm text-gray-400">
+                  {new Date(game.createdAt).toLocaleString()}
+                </p>
+              </div>
+            );
+          }
+        })}
       </div>
     </div>
   );
