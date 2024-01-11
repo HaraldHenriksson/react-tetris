@@ -16,6 +16,7 @@ export default function ProfilePage() {
   const [games, setGames] = useState<GameHistory[]>([]);
   const [page, setPage] = useState(1);
   const observer = useRef<IntersectionObserver>();
+  const [loading, setLoading] = useState(false);
 
   const lastGameElementRef = useCallback((node: HTMLDivElement | null) => {
     if (observer.current) observer.current.disconnect();
@@ -30,10 +31,13 @@ export default function ProfilePage() {
   useEffect(() => {
     const loadGameHistory = async () => {
       try {
+        setLoading(true);
         const gameHistory = await fetchGameHistory(page);
         setGames((prevGames) => [...prevGames, ...gameHistory]);
       } catch (error) {
         console.error("Error fetching game history:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -102,6 +106,7 @@ export default function ProfilePage() {
             );
           }
         })}
+        {loading && <p>Loading game history...</p>}
       </div>
     </div>
   );
