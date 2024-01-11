@@ -248,7 +248,7 @@ export default function Game() {
   };
 
   return (
-    <div className="bg-customBlue min-h-screen flex justify-center items-center ">
+    <div className="bg-customBlue flex-grow flex justify-center items-center">
       <div className="text-white p-4 bg-gray-800 bg-opacity-75 rounded-lg shadow-xl">
         <PausePlayIcon isPaused={isPaused} onClick={togglePause} />
         <p className="text-2xl mb-2">
