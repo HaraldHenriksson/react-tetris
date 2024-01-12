@@ -2,22 +2,27 @@
 
 import { getServerUser } from "@/app/lib/user/server";
 import UserDropdown from "./UserDropdown";
+import ControlsModal from "./Controls";
 
 const NavItem = ({
   href,
   children,
   className,
 }: {
-  href: string;
+  href?: string;
   children: React.ReactNode;
-  className: string;
-}) => (
-  <li>
-    <a href={href} className={className}>
-      {children}
-    </a>
-  </li>
-);
+  className?: string;
+}) => {
+  return href ? (
+    <li>
+      <a href={href} className={className}>
+        {children}
+      </a>
+    </li>
+  ) : (
+    <li>{children}</li>
+  );
+};
 
 export default async function Navbar() {
   let user;
@@ -42,6 +47,9 @@ export default async function Navbar() {
             className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
           >
             Leaderboard
+          </NavItem>
+          <NavItem>
+            <ControlsModal />
           </NavItem>
         </ul>
         <div className="flex items-center">
