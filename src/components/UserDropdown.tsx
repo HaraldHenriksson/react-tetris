@@ -38,7 +38,7 @@ const UserDropdown = ({ user }: UserDropdownProps) => {
         {user.email}
       </button>
       {isDropdownOpen && (
-        <ul className="absolute right-0 mt-2 py-2 w-40 rounded-md shadow-xl z-20 backdrop-filter backdrop-blur-lg bg-white bg-opacity-30">
+        <ul className="absolute right-0 mt-2 py-2 w-40 rounded-md shadow-xl z-20 backdrop-filter backdrop-blur-lg bg-gray-800 bg-opacity-75">
           <li className="block w-full text-left px-4 py-2 text-sm text-white-800 hover:bg-white hover:bg-opacity-50">
             <a href="/profile">Profile</a>
           </li>
