@@ -21,6 +21,7 @@ import MusicControl from "@/components/MusicControl";
 import useGhostPosition from "@/hooks/useGhostPosition";
 import useCheckGameOver from "@/hooks/useCheckGameOver";
 import { useRouter } from "next/navigation";
+import { GameInfo } from "@/components/GameInfo";
 
 type TetrominoType = "I" | "O" | "T" | "S" | "Z" | "J" | "L";
 interface Cell {
@@ -255,19 +256,13 @@ export default function Game({ controls, showMusicControl = true }: GameProps) {
 
   return (
     <div className="bg-customBlue flex-grow flex justify-center items-center">
-      <div className="text-white p-4 bg-gray-800 bg-opacity-75 rounded-lg shadow-xl">
-        <PausePlayIcon isPaused={isPaused} onClick={togglePause} />
-        <p className="text-2xl mb-2">
-          Score: <span className="text-green-400 font-digital">{score}</span>
-        </p>
-        <p className="text-2xl mb-2 ">
-          Level: <span className="text-blue-400 font-digital">{level}</span>
-        </p>
-        <p className="text-2xl">
-          Lines:{" "}
-          <span className="text-red-500 font-digital">{linesCleared}</span>
-        </p>
-      </div>
+      <GameInfo
+        isPaused={isPaused}
+        togglePause={togglePause}
+        score={score}
+        level={level}
+        linesCleared={linesCleared}
+      />
       <div className="relative w-auto">
         <GameGrid grid={grid} width={10} height={20} />
         <GamePieces
