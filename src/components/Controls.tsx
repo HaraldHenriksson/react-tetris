@@ -11,7 +11,7 @@ export default function ControlsModal() {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md p-6 rounded shadow-lg">
+      <div className="backdrop-filter backdrop-blur-lg bg-white bg-opacity-30 p-8 rounded shadow-lg">
         <h2 className="font-bold mb-2">Single Player Game:</h2>
         <ul>
           <li>Move Left: ArrowLeft</li>
