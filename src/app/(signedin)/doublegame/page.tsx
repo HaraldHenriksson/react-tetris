@@ -1,4 +1,4 @@
-import Game from "../game/page";
+import Game from "../../../components/Game";
 
 export default function DoubleGame() {
   return (
