@@ -1,6 +1,6 @@
 "use client";
 
-import { CloseIcon, InfoIcon } from "@/icons/iconst";
+import { CloseIcon, InfoIcon } from "@/icons/icons";
 import { useState } from "react";
 
 export default function ControlsModal() {
