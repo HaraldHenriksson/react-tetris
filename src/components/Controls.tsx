@@ -15,7 +15,7 @@ export default function ControlsModal() {
   }
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50  z-20">
       <div className="backdrop-filter backdrop-blur-lg bg-white bg-opacity-30 p-8 rounded shadow-lg w-1/4">
         <button
           className="absolute top-2 right-2"
