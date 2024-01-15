@@ -24,6 +24,10 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession();
 
+  if (req.nextUrl.pathname === "/" && session) {
+    return NextResponse.redirect(`${requestUrl.origin}/home`);
+  }
+
   if (protectedRoutes.includes(req.nextUrl.pathname) && !session) {
     return NextResponse.redirect(`${requestUrl.origin}/sign-in`, 307);
   }
