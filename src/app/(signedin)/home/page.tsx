@@ -4,12 +4,12 @@ import Link from "next/link";
 
 export default async function Home() {
   return (
-    <main className="flex flex-col flex-grow items-center bg-customBlue p-6">
+    <main className="flex flex-col flex-grow items-center bg-customBlue p-6 text-white">
       <header className="text-center">
         <h1 className="text-7xl mt-32 mb-6 font-blackOpsOne text-blue-500">
           React Tetris
         </h1>
-        <p className="mb-10">A modern take on the classic game</p>
+        <p className="mb-10 text-white">A modern take on the classic game</p>
       </header>
 
       <Link legacyBehavior href="/game">
