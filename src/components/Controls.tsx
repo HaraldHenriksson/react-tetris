@@ -14,7 +14,7 @@ export default function ControlsModal() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6"
+          className="w-6 h-6 text-white"
         >
           <path
             strokeLinecap="round"
@@ -28,7 +28,7 @@ export default function ControlsModal() {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50  z-20">
-      <div className="backdrop-filter backdrop-blur-lg bg-gray-800 bg-opacity-75 p-8 rounded shadow-lg w-1/4">
+      <div className="backdrop-filter backdrop-blur-lg bg-gray-800 bg-opacity-75 p-8 rounded shadow-lg w-1/4 text-white">
         <button
           className="absolute top-2 right-2"
           onClick={() => setShowModal(false)}
