@@ -162,6 +162,9 @@ export default function Game({ controls, showMusicControl = true }: GameProps) {
       const filledRowsCount = filledRows.length;
       // if filled rows
       if (filledRowsCount > 0) {
+        // play sound
+        new Audio("/sounds/cork-85200.mp3").play();
+
         // new empty rows
         const newRows = Array.from({ length: filledRowsCount }, () =>
           Array(gridWidth).fill({ filled: false, type: null })
