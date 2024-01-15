@@ -15,7 +15,7 @@ export const GameInfo: React.FC<GameInfoProps> = ({
   level,
   linesCleared,
 }) => (
-  <div className="text-white p-4 bg-gray-800 bg-opacity-75 rounded-lg shadow-xl">
+  <div className="text-white p-4 bg-gray-800 bg-opacity-75 shadow-xl w-[160px] h-[200px]">
     <PausePlayIcon isPaused={isPaused} onClick={togglePause} />
     <p className="text-2xl mb-2">
       Score: <span className="text-green-400 font-digital">{score}</span>

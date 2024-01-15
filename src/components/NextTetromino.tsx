@@ -13,7 +13,7 @@ const NextTetromino: React.FC<NextTetrominoProps> = ({ nextTetrominoType }) => {
 
   return (
     <div
-      className="p-4 bg-gray-800 bg-opacity-75 rounded-lg shadow-xl flex flex-col items-center justify-center"
+      className="p-4 bg-gray-800 bg-opacity-75 shadow-xl flex flex-col items-center justify-center w-[160px] h-[200px]"
       style={{ width: "160px", height: "200px" }}
     >
       <p className="text-white text-lg">Next</p>
