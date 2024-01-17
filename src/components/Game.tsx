@@ -20,8 +20,8 @@ import useGhostPosition from "@/hooks/useGhostPosition";
 import useCheckGameOver from "@/hooks/useCheckGameOver";
 import { useRouter } from "next/navigation";
 import { GameInfo } from "@/components/GameInfo";
+import { TetrominoType } from "@/types/types";
 
-type TetrominoType = "I" | "O" | "T" | "S" | "Z" | "J" | "L";
 interface Cell {
   filled: boolean;
   type: TetrominoType | null;

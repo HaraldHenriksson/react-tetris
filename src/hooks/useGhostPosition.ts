@@ -1,7 +1,6 @@
 import { checkCollision } from "@/components/GameCollision";
+import { TetrominoType } from "@/types/types";
 import { getCurrentTetrominoShape } from "@/utils/tetrisUtils";
-
-type TetrominoType = "I" | "O" | "T" | "S" | "Z" | "J" | "L";
 
 const useGhostPosition = (
   currentTetromino: TetrominoType,

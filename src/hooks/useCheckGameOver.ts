@@ -1,8 +1,7 @@
 import { checkCollision } from "@/components/GameCollision";
+import { TetrominoType } from "@/types/types";
 import { getCurrentTetrominoShape } from "@/utils/tetrisUtils";
 import { useCallback } from "react";
-
-type TetrominoType = "I" | "O" | "T" | "S" | "Z" | "J" | "L";
 
 const useCheckGameOver = (
   currentTetromino: TetrominoType,
