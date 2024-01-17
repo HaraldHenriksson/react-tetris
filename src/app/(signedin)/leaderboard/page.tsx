@@ -61,7 +61,10 @@ export default async function Leaderboard() {
                     <span className="text-yellow-400">{game.user.email}</span>
                   </p>
                   <p>
-                    Score: <span className="text-green-400">{game.score}</span>
+                    Score:{" "}
+                    <span className="text-green-400">
+                      {game.score.toLocaleString()}
+                    </span>
                   </p>
                   <p>
                     Level: <span className="text-blue-400">{game.level}</span>
