@@ -1,6 +1,6 @@
 import { getCurrentTetrominoShape } from "@/utils/tetrisUtils";
 import { checkCollision } from "@/components/GameCollision";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
 interface Cell {
   filled: boolean;

@@ -1,6 +1,5 @@
 "use client";
 
-import { MusicIcon } from "@/icons/icons";
 import React, { useState, useEffect } from "react";
 
 interface MusicControlProps {

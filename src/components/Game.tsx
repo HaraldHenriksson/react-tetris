@@ -1,6 +1,5 @@
 "use client";
 
-import { checkCollision } from "@/components/GameCollision";
 import GamePieces from "@/components/GamePieces";
 import GameGrid from "@/components/Gamegrid";
 import Tetrominos from "@/components/Tetromino";
@@ -12,7 +11,6 @@ import {
   calculateScoreForLines,
   calculateTotalScore,
 } from "@/utils/scoreUtils";
-import PausePlayIcon from "@/components/PausePlayIcon";
 import useTetrominoControls from "@/hooks/useTetrominoControls";
 import { getServerUser } from "@/app/lib/user/server";
 import { saveGame } from "../app/(signedin)/_server-actions/actions";
