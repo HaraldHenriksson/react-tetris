@@ -15,3 +15,5 @@ export const calculateTotalScore = (
 ): number => {
   return currentScore + additionalScore;
 };
+
+//build test
